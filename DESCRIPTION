@@ -16,6 +16,7 @@ Depends:
     R (>= 3.0),
 Imports:
     mda.streams,
-    sbtools
+    sbtools, 
+    httr
 LazyLoad: yes
 LazyData: yes
