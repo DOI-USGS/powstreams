@@ -20,6 +20,8 @@ file handle for downloaded file
 download a watershed shapefile to a user-specified location
 }
 \examples{
+\dontrun{
 download_watershed(site = 'nwis_01018035')
+}
 }
 
