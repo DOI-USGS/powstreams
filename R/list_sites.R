@@ -2,7 +2,7 @@
 #'@description returns data from site into R data.frame
 #'
 #'@param within_poly FALSE for all sites, or a valid polygon
-#'@param a valid sciencebase session (see \code{\link{authenticate_sb}}). 
+#'@param session a valid sciencebase session (see \code{\link{authenticate_sb}}). 
 #'Set \code{session = NULL} (default) for sites on sciencebase that are public.
 #'@return a character vector of powstreams sites according to user-specified parameters
 #'
