@@ -8,7 +8,7 @@ list_sites(within_poly, session = NULL)
 \arguments{
 \item{within_poly}{FALSE for all sites, or a valid polygon}
 
-\item{session}{a valid sciencebase session (see \code{\link{authenticate_sb}}).
+\item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
 Set \code{session = NULL} (default) for sites on sciencebase that are public.}
 }
 \value{

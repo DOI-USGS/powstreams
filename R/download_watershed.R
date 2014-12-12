@@ -2,12 +2,11 @@
 #'@description download a watershed shapefile to a user-specified location
 #'@param site a valid powstreams site (see \link{list_sites})
 #'@param destination string for a folder location
-#'@param session a valid sciencebase session (see \code{\link{authenticate_sb}}). 
+#'@param session a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}). 
 #'Set \code{session = NULL} (default) for sites on sciencebase that are public.
 #'@return file handle for downloaded file
 #'@examples
 #'download_watershed(site = 'nwis_01018035')
-#'@exportMethod authenticate_sb
 #'@import httr mda.streams
 #'@export
 download_watershed = function(site, destination = NULL, session = NULL){
