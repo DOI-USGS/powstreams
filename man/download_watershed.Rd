@@ -10,7 +10,7 @@ download_watershed(site, destination = NULL, session = NULL)
 
 \item{destination}{string for a folder location}
 
-\item{session}{a valid sciencebase session (see \code{\link{authenticate_sb}}).
+\item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
 Set \code{session = NULL} (default) for sites on sciencebase that are public.}
 }
 \value{
