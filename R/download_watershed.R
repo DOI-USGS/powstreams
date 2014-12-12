@@ -6,7 +6,9 @@
 #'Set \code{session = NULL} (default) for sites on sciencebase that are public.
 #'@return file handle for downloaded file
 #'@examples
+#'\dontrun{
 #'download_watershed(site = 'nwis_01018035')
+#'}
 #'@import httr mda.streams
 #'@export
 download_watershed = function(site, destination = NULL, session = NULL){
