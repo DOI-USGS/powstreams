@@ -24,7 +24,7 @@ download_watershed = function(site, destination = NULL, session = NULL){
   query <- paste0(WFS_url, '&request=GetFeature','&typeName=', sb_namespace,
                   ":",site,'&outputFormat=SHAPE-ZIP')
   
-  http <- GET(query, session = session, write_disk(destination),progress())
+  http <- GET(url = query, write_disk(file_handle), session = session)
   
   # check for success...
   
