@@ -3,5 +3,6 @@
 export(download_watershed)
 export(list_sites)
 exportMethods(authenticate_sb)
+import(httr)
 import(mda.streams)
 import(sbtools)
