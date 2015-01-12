@@ -12,3 +12,5 @@
 .Rproj.user
 powstreams.Rproj
 .Rbuildignore
+R/.DS_Store
+.DS_Store
