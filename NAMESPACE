@@ -2,7 +2,9 @@
 
 export(download_timeseries)
 export(download_watershed)
+export(get_timeseries)
 export(list_sites)
+export(list_timeseries)
 import(httr)
 import(mda.streams)
 import(sbtools)

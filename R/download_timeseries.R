@@ -5,6 +5,8 @@
 #'@param destination string for a folder location
 #'@param session a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}). 
 #'Set \code{session = NULL} (default) for sites on sciencebase that are public.
+#'@param ... additional arguments passed to \code{\link[sbtools]{item_file_download}}, 
+#'for example \code{overwrite_file}
 #'@return file handle for downloaded file
 #'@examples
 #'\dontrun{
@@ -12,9 +14,10 @@
 #'}
 #'@import mda.streams
 #'@export
-download_timeseries = function(site, variable, destination = NULL, session = NULL){
+download_timeseries = function(site, variable, destination = NULL, session = NULL, ...){
   
-  file_handle <- download_ts(site = site, variable = variable, destination = destination, session = session)
+  file_handle <- download_ts(site = site, variable = variable, destination = destination, session = session, ...)
   
-  
+  return(file_handle)
+
 }
