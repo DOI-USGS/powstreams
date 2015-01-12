@@ -14,6 +14,5 @@ list_timeseries = function(site, session = NULL){
   
   timeseries <- get_ts_variables(site = site, session = session)
   
-  # error if site doesn't exist?
   return(timeseries)
 }
