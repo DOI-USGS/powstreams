@@ -18,5 +18,7 @@ Imports:
     mda.streams,
     sbtools,
     httr
+Suggests:
+    testthat
 LazyLoad: yes
 LazyData: yes
