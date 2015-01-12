@@ -13,8 +13,9 @@ before_install:
 install:
   - ./travis-tool.sh install_deps
   - ./travis-tool.sh github_package jimhester/covr
-  - ./travis-tool.sh install_github USGS-R/mda.streams
   - ./travis-tool.sh install_github USGS-R/sbtools
+  - ./travis-tool.sh install_github USGS-R/mda.streams
+
  
 script: ./travis-tool.sh run_tests
 
