@@ -14,7 +14,7 @@
 #'@import mda.streams
 #'@import sbtools
 #'@export
-list_sites <- function(within_poly, session = NULL){
+list_sites <- function(within_poly = FALSE, session = NULL){
   
   if (class(within_poly) == 'logical'){
     if (!within_poly){
