@@ -16,7 +16,7 @@ download_watershed = function(site, destination = NULL, session = NULL){
   if (is.null(destination)){
     file_handle = tempfile(fileext = '.zip')
   } else {
-    file_handle = paste0(destination,site,'.zip')
+    file_handle = file.path(destination,paste0(site,'.zip'))
   }
   sb_namespace = 'sb'
   WFS <- get_watershed_WFS(site, session = session)
