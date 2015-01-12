@@ -4,14 +4,15 @@
 #'@param destination string for a folder location
 #'@param session a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}). 
 #'Set \code{session = NULL} (default) for sites on sciencebase that are public.
+#'@param ... additional arguments passed to \code{\link[httr]{write_disk}} (e.g., \code{overwrite = TRUE})
 #'@return file handle for downloaded file
 #'@examples
 #'\dontrun{
 #'download_watershed(site = 'nwis_01018035')
 #'}
-#'@import httr mda.streams
+#'@import httr mda.streams sbtools
 #'@export
-download_watershed = function(site, destination = NULL, session = NULL){
+download_watershed = function(site, destination = NULL, session = NULL, ...){
   
   if (is.null(destination)){
     file_handle = tempfile(fileext = '.zip')
@@ -25,10 +26,8 @@ download_watershed = function(site, destination = NULL, session = NULL){
   query <- paste0(WFS_url, '&request=GetFeature','&typeName=', sb_namespace,
                   ":",site,'&outputFormat=SHAPE-ZIP')
   
-  http <- GET(url = query, write_disk(file_handle), session = session)
+  http <- GET(url = query, write_disk(file_handle, ...), session = session)
   
-  # check for success...
-  
-  
+
   return(file_handle)
 }
