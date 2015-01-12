@@ -5,7 +5,8 @@ powstreams
 Tools for Powell Center working group on stream metabolism
 
 [![Build status](https://ci.appveyor.com/api/projects/status/gg6y017krc5ij0ba?svg=true)](https://ci.appveyor.com/project/jread-usgs/powstreams)
-
+[![Build Status](https://travis-ci.org/USGS-R/powstreams.svg)](https://travis-ci.org/USGS-R/powstreams)
+[![Coverage Status](https://img.shields.io/coveralls/USGS-R/powstreams.svg)](https://coveralls.io/r/USGS-R/powstreams)
 ##Disclaimer
 This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey, an agency of the United States Department of Interior. For more information, see the [official USGS copyright policy](http://www.usgs.gov/visual-id/credit_usgs.html#copyright/ "official USGS copyright policy")
 
