@@ -4,7 +4,7 @@
 \alias{list_sites}
 \title{get site data from a powstreams site}
 \usage{
-list_sites(within_poly, session = NULL)
+list_sites(within_poly = FALSE, session = NULL)
 }
 \arguments{
 \item{within_poly}{FALSE for all sites, or a valid polygon}
