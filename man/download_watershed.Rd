@@ -24,7 +24,7 @@ download a watershed shapefile to a user-specified location
 }
 \examples{
 \dontrun{
-download_watershed(site = 'nwis_01018035')
+download_watershed(site = 'nwis_06893300')
 }
 }
 
