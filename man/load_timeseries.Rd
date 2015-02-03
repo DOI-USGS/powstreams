@@ -9,21 +9,24 @@ load_timeseries(site, variable, session = NULL)
 \arguments{
 \item{site}{a valid powstreams site (see \link{list_sites})}
 
-\item{variable}{a valid variable name for timeseries data}
+\item{variable}{a valid variable name for timeseries data, or a vector of variable names}
 
 \item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
 Set \code{session = NULL} (default) for sites on sciencebase that are public.}
 }
 \value{
-timeseries data.frame
+timeseries data.frame. Will be matched in time if multiple variables are used for \code{variable}
 }
 \description{
 load a timeseries into local R environment. Will download timeseries into
-temp file, importa it into R as a data.frame, and delete the temporary file
+temp file, import it into R as a data.frame, and delete the temporary file.
 }
 \examples{
 \dontrun{
 dissolved_oxygen <- load_timeseries(site = 'nwis_01018035', variable = 'doobs')
 }
+}
+\seealso{
+\code{\link{list_timeseries}}, \code{\link{list_sites}}
 }
 
