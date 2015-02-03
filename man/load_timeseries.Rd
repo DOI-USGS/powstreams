@@ -2,28 +2,32 @@
 % Please edit documentation in R/load_timeseries.R
 \name{load_timeseries}
 \alias{load_timeseries}
-\title{load a timeseries into local R environment}
+\title{load timeseries into local R environment}
 \usage{
 load_timeseries(site, variable, session = NULL)
 }
 \arguments{
-\item{site}{a valid powstreams site (see \link{list_sites})}
+\item{site}{a valid powstreams site (see \code{\link{list_sites}})}
 
-\item{variable}{a valid variable name for timeseries data}
+\item{variable}{a valid variable name for timeseries data, or a vector of variable names}
 
 \item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
 Set \code{session = NULL} (default) for sites on sciencebase that are public.}
 }
 \value{
-timeseries data.frame
+timeseries data.frame. Will be matched in time if multiple variables are used for \code{variable}
 }
 \description{
-load a timeseries into local R environment. Will download timeseries into
-temp file, importa it into R as a data.frame, and delete the temporary file
+load timeseries into local R environment. Will download timeseries into
+temp file, import it into R as a data.frame, and delete the temporary file.
 }
 \examples{
 \dontrun{
 dissolved_oxygen <- load_timeseries(site = 'nwis_01018035', variable = 'doobs')
+metab_input <- load_timeseries(site = 'nwis_01408500', variable = c('doobs','wtr'))
 }
+}
+\seealso{
+\code{\link{list_timeseries}}, \code{\link{list_sites}}
 }
 
