@@ -7,7 +7,7 @@
 list_sites(with_timeseries = NULL, session = NULL)
 }
 \arguments{
-\item{with_timeseries}{FALSE for all sites, or a valid polygon}
+\item{with_timeseries}{NULL for all sites, or a valid timeseries name}
 
 \item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
 Set \code{session = NULL} (default) for sites on sciencebase that are public.}
@@ -21,7 +21,7 @@ returns data from site into R data.frame
 \examples{
 list_sites() # get all sites
 \dontrun{
-list_sites(with_timeseries = 'wtr') # get all sites within a user specific polygon (inclusive)
+list_sites(with_timeseries = 'wtr') # get all sites with a given type of data
 }
 }
 
