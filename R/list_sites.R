@@ -27,7 +27,7 @@ list_sites <- function(with_timeseries = NULL, session = NULL){
     
     sites <- vector(mode = 'character', length = nrow(ids))
     for (i in 1:nrow(ids)){
-      sites[i] <- get_parent(ids[i, 2])
+      sites[i] <- item_get_parent(ids[i, 2], session = session)
     }
     tbl_sites <- data.frame(table(sites))
     sites <- as.character(tbl_sites$sites[tbl_sites$Freq == length(types)])
