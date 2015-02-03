@@ -12,7 +12,7 @@ test_that("listing variables from site fails", {
   
   expect_is(download_watershed(site = "nwis_01408500"), 'character')
   expect_is(load_timeseries(site = "nwis_01408500", variable = 'doobs'), 'data.frame')
-  expect_is(load_timeseries(site = 'nwis_01408500', variable = c('doobs','wtr'), 'data.frame')
+  expect_is(load_timeseries(site = 'nwis_01408500', variable = c('doobs','wtr')), 'data.frame')
   
 })
 
