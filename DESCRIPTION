@@ -1,7 +1,7 @@
 Package: powstreams
 Type: Package
 Title: powstreams
-Version: 0.2.0
+Version: 0.3.0
 Date: 2014-12-08
 Author: Jordan S Read, Luke A Winslow
 Maintainer: Jordan S Read <jread@usgs.gov>
@@ -17,6 +17,7 @@ Depends:
 Imports:
     mda.streams,
     sbtools,
+    dplyr,
     httr
 Suggests:
     testthat
