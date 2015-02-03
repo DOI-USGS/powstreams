@@ -4,10 +4,10 @@
 \alias{list_sites}
 \title{get site data from a powstreams site}
 \usage{
-list_sites(within_poly = FALSE, session = NULL)
+list_sites(with_timeseries = NULL, session = NULL)
 }
 \arguments{
-\item{within_poly}{FALSE for all sites, or a valid polygon}
+\item{with_timeseries}{FALSE for all sites, or a valid polygon}
 
 \item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
 Set \code{session = NULL} (default) for sites on sciencebase that are public.}
@@ -19,9 +19,9 @@ a character vector of powstreams sites according to user-specified parameters
 returns data from site into R data.frame
 }
 \examples{
-list_sites(within_poly = FALSE) # get all sites
+list_sites() # get all sites
 \dontrun{
-list_sites(within_poly = poly) # get all sites within a user specific polygon (inclusive)
+list_sites(with_timeseries = 'wtr') # get all sites within a user specific polygon (inclusive)
 }
 }
 
