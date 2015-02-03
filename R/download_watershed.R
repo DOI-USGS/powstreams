@@ -8,16 +8,16 @@
 #'@return file handle for downloaded file
 #'@examples
 #'\dontrun{
-#'download_watershed(site = 'nwis_01018035')
+#'download_watershed(site = 'nwis_06893300')
 #'}
 #'@import httr mda.streams sbtools
 #'@export
 download_watershed = function(site, destination = NULL, session = NULL, ...){
   
   if (is.null(destination)){
-    file_handle = tempfile(fileext = '.zip')
+    file_handle = file.path(tempdir(), paste0(site,'_watershed.zip'))
   } else {
-    file_handle = file.path(destination,paste0(site,'.zip'))
+    file_handle = file.path(destination, paste0(site,'_watershed.zip'))
   }
   sb_namespace = 'sb'
   WFS <- get_watershed_WFS(site, session = session)
