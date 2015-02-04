@@ -17,20 +17,15 @@
 list_sites <- function(with_timeseries = NULL, session = NULL){
   
   if(is.null(with_timeseries)){
-    sites <- get_sites(session)
+    
+    sites <- get_sites(session = session)
+    
   } else {
-    types <- mda.streams:::make_ts_variable(variable = with_timeseries) # can be multiple? not yet
-    ids <- data.frame()
+    types <- make_ts_variable(variable = with_timeseries)
+    sites <- vector('character')
     for (k in 1:length(types)){
-      ids <- rbind(ids, query_item_identifier(scheme = "mda_streams", type = types[k], session = session, limit = 10000))
+      sites <- append(sites, get_sites(with_child_key = types[k], session = session))
     }
-    
-    sites <- vector(mode = 'character', length = nrow(ids))
-    for (i in 1:nrow(ids)){
-      site_id <- item_get_parent(ids[i, 2], session = session)
-      sites[i] <- mda.streams:::get_title(site_id, session)
-    }
-    
     # get sites that are repeated as many times as the number of types used
     tbl_sites <- data.frame(table(sites))
     sites <- as.character(tbl_sites$sites[tbl_sites$Freq == length(types)])

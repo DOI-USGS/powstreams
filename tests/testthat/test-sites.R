@@ -14,5 +14,9 @@ test_that("listing variables from site fails", {
   expect_is(load_timeseries(site = "nwis_01408500", variable = 'doobs'), 'data.frame')
   expect_is(load_timeseries(site = 'nwis_01408500', variable = c('doobs','wtr')), 'data.frame')
   
+  expect_is(site_location("nwis_11126000"), 'data.frame')
+  expect_is(site_location("11126000"), 'data.frame')
+  expect_is(site_location(c("11126000", "09258980")), 'data.frame')
+  
 })
 
