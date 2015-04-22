@@ -16,6 +16,7 @@ install:
 
 build_script:
   - travis-tool.sh install_github USGS-R/sbtools
+  - travis-tool.sh install_github USGS-R/geoknife
   - travis-tool.sh install_github USGS-R/mda.streams
   - travis-tool.sh install_deps
 
