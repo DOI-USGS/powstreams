@@ -8,7 +8,7 @@ environment:
 init:
   ps: |
         $ErrorActionPreference = "Stop"
-        Invoke-WebRequest http://raw.github.com/jread-usgs/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
+        Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
 
 install:
@@ -16,14 +16,12 @@ install:
 
 build_script:
   - travis-tool.sh install_github USGS-R/sbtools
-  - Rscript -e 'install.packages("devtools")'
   - travis-tool.sh install_github USGS-R/geoknife
   - travis-tool.sh install_github USGS-R/mda.streams
   - travis-tool.sh install_deps
 
 test_script:
   - travis-tool.sh run_tests
-  - Rscript -e 'devtools::build(binary = TRUE, args = c("--preclean"))'
 
 on_failure:
   - travis-tool.sh dump_logs
@@ -40,9 +38,6 @@ artifacts:
 
   - path: '*.Rcheck\**\*.Rout'
     name: Logs
-
-  - path: '\*_*.tgz'
-    name: Bits
 
   - path: '\*_*.tar.gz'
     name: Bits
