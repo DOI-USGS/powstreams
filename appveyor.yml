@@ -16,12 +16,14 @@ install:
 
 build_script:
   - travis-tool.sh install_github USGS-R/sbtools
+  - Rscript -e 'install.packages("devtools")'
   - travis-tool.sh install_github USGS-R/geoknife
   - travis-tool.sh install_github USGS-R/mda.streams
   - travis-tool.sh install_deps
 
 test_script:
   - travis-tool.sh run_tests
+  - Rscript -e 'devtools::build(binary = TRUE, args = c("--preclean"))'
 
 on_failure:
   - travis-tool.sh dump_logs
@@ -38,6 +40,9 @@ artifacts:
 
   - path: '*.Rcheck\**\*.Rout'
     name: Logs
+
+  - path: '\*_*.tgz'
+    name: Bits
 
   - path: '\*_*.tar.gz'
     name: Bits
