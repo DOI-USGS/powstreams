@@ -7,7 +7,7 @@
 #'@seealso \code{\link{download_timeseries}}
 #'@examples
 #'list_timeseries(site = 'nwis_01018035')
-#'@import mda.streams
+#'@importFrom mda.streams get_ts_variables
 #'@export
 list_timeseries = function(site, session = NULL){
   

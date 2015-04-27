@@ -12,8 +12,8 @@
 #'metab_input <- load_timeseries(site = 'nwis_01408500', variable = c('doobs','wtr'))
 #'}
 #'@seealso \code{\link{list_timeseries}}, \code{\link{list_sites}}
-#'@import mda.streams
-#'@import dplyr
+#'@importFrom dplyr inner_join
+#'@importFrom mda.streams read_ts
 #'@export
 load_timeseries = function(site, variable, session = NULL){
   

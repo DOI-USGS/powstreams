@@ -1,0 +1,68 @@
+---
+output: html_document
+---
+<!--
+  %\VignetteEngine{knitr}
+%\VignetteIndexEntry{b) Powell Streams data report}
+-->
+
+Powell Streams data report
+===
+
+```{r, echo=FALSE,result='hide',message=FALSE, warning=FALSE, fig.width=8,fig.height=6.5}
+library(powstreams)
+library(dplyr)
+library(choroplethr)
+library(dataRetrieval)
+library(choroplethrMaps)
+data(state.regions)
+
+sites <- list_sites(with_timeseries = 'doobs')
+df <- state.regions[,c(1,3)]
+names(df)[2] <- 'value'
+df[,2] <- 0
+nwis_sites <- mda.streams:::split_site(sites)
+site_data <- readNWISsite(nwis_sites)
+for (i in 1:length(sites)){
+  
+  region <- state.regions[as.numeric(site_data$state_cd[i])==state.regions[,3], 1]
+  u.i = df[,1] == region
+  if (sum(u.i) == 1){
+    df[u.i, 2]<- df[u.i, 2]+1
+  }
+}
+
+sites_w_either <- unique(c(list_sites(with_timeseries = c('doobs','wtr','disch')), list_sites(with_timeseries = c('doobs','wtr','stage'))))
+
+state_choropleth(df)
+```
+
+## sites with DO data: `r length(list_sites(with_timeseries = 'doobs'))` 
+
+## sites with DO, temp, and discharge data: `r length(list_sites(with_timeseries = c('doobs','wtr','disch')))` 
+
+## sites with DO, temp, discharge AND/OR stage: `r length(sites_w_either)`  
+
+## sites with DO and nitrate: `r length(list_sites(with_timeseries = c('doobs','nitrate')))`
+
+
+## Range of DO for sites with DO and temperature:
+<object data="../demo/powstreams_amps.svg" type="image/svg+xml" />
+
+### is those real data?
+```{r}
+library(powstreams)
+site <- 'nwis_08446500'
+doobs <- load_timeseries(site, 'doobs')
+aug_do <- filter(doobs, months(DateTime)=="August" & strftime(DateTime,'%Y') == '2012')
+```
+
+```{r, fig.width=7,fig.height=5}
+plot(aug_do, ylab = 'DO (mg/L)')
+```
+
+### A closer look
+
+```{r, fig.width=7,fig.height=5}
+plot(aug_do[400:750, ], type = 'o', ylab = 'DO (mg/L)', pch = 21, bg='white')
+```

@@ -1,8 +1,8 @@
 #'@title get site latitude and longitude 
 #'@param site a valid powstreams site (see \code{\link{list_sites}})
 #'
-#'@import mda.streams
-#'@import dataRetrieval
+#'@importFrom mda.streams split_site
+#'@importFrom dataRetrieval readNWISsite
 #'@examples
 #'site_location("nwis_11126000")
 #'\dontrun{
