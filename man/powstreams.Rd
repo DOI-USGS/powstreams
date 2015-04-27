@@ -11,13 +11,15 @@ Powell Center project data in particular. For lower-level functions specific
 to the Powell Center project, see \pkg{mda.streams}, and for still
 lower-level functions generic to all ScienceBase tasks, see \pkg{sbtools}.
 }
-\details{
-\section{Logging in}
+\section{Logging in}{
+
 
 Use the \code{\link{authenticate_sb}} command from \pkg{sbtools} to establish
 session credentials for working with ScienceBase.
+}
 
-\section{Navigating ScienceBase}
+\section{Navigating ScienceBase}{
+
 
 \itemize{
 
@@ -26,8 +28,10 @@ session credentials for working with ScienceBase.
 \item \code{\link{list_timeseries}}
 
 }
+}
 
-\section{Reading data from ScienceBase}
+\section{Reading data from ScienceBase}{
+
 
 \itemize{
 

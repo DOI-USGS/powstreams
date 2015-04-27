@@ -5,14 +5,13 @@
 #' to the Powell Center project, see \pkg{mda.streams}, and for still
 #' lower-level functions generic to all ScienceBase tasks, see \pkg{sbtools}.
 #' 
-#' 
-#' \section{Logging in}
+#' @section Logging in:
 #' 
 #' Use the \code{\link{authenticate_sb}} command from \pkg{sbtools} to establish
 #' session credentials for working with ScienceBase.
 #' 
 #' 
-#' \section{Navigating ScienceBase}
+#' @section Navigating ScienceBase:
 #' 
 #' \itemize{
 #' 
@@ -22,8 +21,7 @@
 #' 
 #' }
 #' 
-#' 
-#' \section{Reading data from ScienceBase}
+#' @section Reading data from ScienceBase:
 #' 
 #' \itemize{
 #' 
@@ -36,7 +34,6 @@
 #' \item \code{\link{download_watershed}} - downloads geospatial data from SB into a file
 #' 
 #' }
-#' 
 #' 
 #' @docType package
 #' @name powstreams
