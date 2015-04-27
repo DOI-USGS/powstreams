@@ -10,7 +10,8 @@
 #'\dontrun{
 #'download_watershed(site = 'nwis_06893300')
 #'}
-#'@import httr mda.streams sbtools
+#'@importFrom httr GET write_disk
+#'@importFrom mda.streams get_watershed_WFS
 #'@export
 download_watershed = function(site, destination = NULL, session = NULL, ...){
   
@@ -23,6 +24,8 @@ download_watershed = function(site, destination = NULL, session = NULL, ...){
   WFS <- get_watershed_WFS(site, session = session)
   
   WFS_url <- strsplit(x = WFS, split = '&')[[1]][1]
+  
+  # can output geojson w/ '&outputFormat=application/json'
   query <- paste0(WFS_url, '&request=GetFeature','&typeName=', sb_namespace,
                   ":",site,'&outputFormat=SHAPE-ZIP')
   

@@ -11,8 +11,7 @@
 #'\dontrun{
 #'list_sites(with_timeseries = 'wtr') # get all sites with a given type of data
 #'}
-#'@import mda.streams
-#'@import sbtools
+#'@importFrom mda.streams get_sites make_ts_variable
 #'@export
 list_sites <- function(with_timeseries = NULL, session = NULL){
   

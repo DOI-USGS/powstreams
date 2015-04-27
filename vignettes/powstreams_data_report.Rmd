@@ -41,19 +41,20 @@ state_choropleth(df)
 
 ## sites with DO, temp, and discharge data: `r length(list_sites(with_timeseries = c('doobs','wtr','disch')))` 
 
-## sites with DO, temp, discharge AND/OR stage: `r length(sites_w_either)` 
+## sites with DO, temp, discharge AND/OR stage: `r length(sites_w_either)`  
 
+## sites with DO and nitrate: `r length(list_sites(with_timeseries = c('doobs','nitrate')))`
 
 
 ## Range of DO for sites with DO and temperature:
-<object data="../demo/powstreams_boxplot.svg" type="image/svg+xml" />
+<object data="../demo/powstreams_amps.svg" type="image/svg+xml" />
 
 ### is those real data?
 ```{r}
 library(powstreams)
-site <- 'nwis_11046072'
+site <- 'nwis_08446500'
 doobs <- load_timeseries(site, 'doobs')
-aug_do <- filter(doobs, months(DateTime)=="August" & strftime(DateTime,'%Y') == '2008')
+aug_do <- filter(doobs, months(DateTime)=="August" & strftime(DateTime,'%Y') == '2012')
 ```
 
 ```{r, fig.width=7,fig.height=5}

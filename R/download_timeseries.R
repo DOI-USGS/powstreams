@@ -12,7 +12,7 @@
 #'\dontrun{
 #'download_timeseries(site = 'nwis_01018035', variable = 'doobs')
 #'}
-#'@import mda.streams
+#'@importFrom mda.streams download_ts
 #'@export
 download_timeseries = function(site, variable, destination = NULL, session = NULL, ...){
   
