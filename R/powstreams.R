@@ -55,7 +55,7 @@
 #'   
 #'   \itemize{
 #'   
-#'   \item \code{\link{.url_from_id}} - given an item ID, produces a URL that 
+#'   \item \code{.url_from_id} - given an item ID, produces a URL that 
 #'   will take you to that item
 #'   
 #'   }
