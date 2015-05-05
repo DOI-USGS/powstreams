@@ -4,22 +4,31 @@
 \alias{load_timeseries}
 \title{load timeseries into local R environment}
 \usage{
-load_timeseries(site, variable, session = NULL)
+load_timeseries(site, variables, join.fun = inner_join, session = NULL)
 }
 \arguments{
 \item{site}{a valid powstreams site (see \code{\link{list_sites}})}
 
-\item{variable}{a valid variable name for timeseries data, or a vector of variable names}
+\item{variables}{a valid variable name for timeseries data, or a vector of
+variable names}
 
-\item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
-Set \code{session = NULL} (default) for sites on sciencebase that are public.}
+\item{join.fun}{The \pkg{dplyr} function to use when successively adding the
+second, third, ... variables in \code{variables}. Good options include
+\code{\link{inner_join}}, \code{\link{full_join}}, and
+\code{\link{left_join}}.}
+
+\item{session}{a valid sciencebase session (see
+\code{\link[sbtools]{authenticate_sb}}). Set \code{session = NULL}
+(default) for sites on sciencebase that are public.}
 }
 \value{
-timeseries data.frame. Will be matched in time if multiple variables are used for \code{variable}
+timeseries data.frame. Will be matched in time if multiple variables
+  are used for \code{variable}
 }
 \description{
-load timeseries into local R environment. Will download timeseries into
-temp file, import it into R as a data.frame, and delete the temporary file.
+load timeseries into local R environment. Will download
+  timeseries into temp file, import it into R as a data.frame, and delete the
+  temporary file.
 }
 \examples{
 \dontrun{
