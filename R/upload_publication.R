@@ -1,6 +1,5 @@
 #'@title upload a publication to sciencebase
 #'@param file a file path to the presentation for upload
-#'@param username valid sciencebase username (will be prompted for password)
 #'@param ... additional parameters passed to \code{\link[sbtools]{session_check_reauth}}
 #'@importFrom sbtools item_upload_create session_check_reauth current_session
 #'@export

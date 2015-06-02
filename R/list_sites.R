@@ -1,20 +1,28 @@
-#'@title get site data from a powstreams site
-#'@description returns data from site into R data.frame
-#'
-#'@param with_timeseries NULL for all sites, or a valid timeseries name
-#'@param ... Additional parameters supplied to \code{\link[sbtools]{session_check_reauth}}
-#'@return a character vector of powstreams sites according to user-specified parameters
-#'
-#'@examples
-#'
-#'\dontrun{
-#'list_sites() # get all sites
-#'list_sites(with_timeseries = 'wtr') # get all sites with a given type of data
-#'}
-#'@importFrom mda.streams get_sites choose_sites
-#'@export
-list_sites <- function(with_timeseries = NULL, ...){
-  
-	sites = choose_sites(with_timeseries)
-  return(sites)
+#' @title get site data from a powstreams site
+#' @description returns data from site into R data.frame
+#'   
+#' @param with_timeseries NULL to return all sites, or character vector of
+#'   timeseries variables (i.e., 1+ of those listed in get_ts_variables())
+#' @param logic how to join the constraints in with_timeseries, ...: is any of 
+#'   the listed parameters sufficient, or do you need all of them to be 
+#'   available for a site to qualify?
+#' @param ... additional querying terms (not yet implemented)
+#' @return a character vector of site IDs
+#' @examples
+#' \dontrun{
+#' list_sites() # get all sites
+#' 
+#' # get all sites with a given type of data
+#' list_sites(with_timeseries = 'wtr') 
+#' 
+#' # get all sites with both wtr and doobs data
+#' list_sites(with_timeseries = c('wtr','doobs')) 
+#' 
+#' # get all sites with EITHER wtr or doobs data (or both)
+#' list_sites(with_timeseries = c('wtr','doobs'), logic='any') 
+#' }
+#' @importFrom mda.streams find_sites
+#' @export
+list_sites <- function(with_timeseries=NULL, logic=c("all","any"), ...) {
+  find_sites(with_timeseries=with_timeseries, logic=logic, ...)
 }

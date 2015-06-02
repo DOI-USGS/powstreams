@@ -19,7 +19,9 @@ a character vector of timeseries names, or NULL if none exists.
 list timeseries data available for a particular site
 }
 \examples{
+\dontrun{
 list_timeseries(site = 'nwis_01018035')
+}
 }
 \seealso{
 \code{\link{download_timeseries}}
