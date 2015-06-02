@@ -4,13 +4,13 @@
 \alias{list_timeseries}
 \title{list timeseries data available for a particular site}
 \usage{
-list_timeseries(site, session = NULL)
+list_timeseries(site, ...)
 }
 \arguments{
 \item{site}{a valid powstreams site (see \link{list_sites})}
 
-\item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
-Set \code{session = NULL} (default) for sites on sciencebase that are public.}
+\item{...}{additional arguments passed to \code{\link[sbtools]{session_check_reauth}},
+for example \code{username}}
 }
 \value{
 a character vector of timeseries names, or NULL if none exists.
