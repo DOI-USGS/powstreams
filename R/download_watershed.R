@@ -1,21 +1,21 @@
-#'@title download watershed shapefile
-#'@description download a watershed shapefile to a user-specified location
-#'@param site a valid powstreams site (see \link{list_sites})
-#'@param destination string for a folder location
-#'@param session a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}). 
-#'Set \code{session = NULL} (default) for sites on sciencebase that are public.
-#'@param ... additional arguments passed to \code{\link[httr]{write_disk}} (e.g., \code{overwrite = TRUE}) and 
-#'\code{\link[sbtools]{session_check_reauth}} (e.g., username='user@@usgs.gov')
-#'
-#'@return file handle for downloaded file
-#'@examples
-#'\dontrun{
-#'download_watershed(site = 'nwis_06893300')
-#'}
-#'@importFrom httr GET write_disk
-#'@importFrom mda.streams get_watershed_WFS
-#'@importFrom sbtools current_session
-#'@export
+#' @title download watershed shapefile
+#' @description download a watershed shapefile to a user-specified location
+#' @param site a valid powstreams site (see \link{list_sites})
+#' @param destination string for a folder location
+#' @param ... additional arguments passed to \code{\link[httr]{write_disk}}
+#'   (e.g., \code{overwrite = TRUE}) and 
+#'   \code{\link[sbtools]{session_check_reauth}} (e.g.,
+#'   username='user@@usgs.gov')
+#'   
+#' @return file handle for downloaded file
+#' @examples
+#' \dontrun{
+#' download_watershed(site = 'nwis_06893300')
+#' }
+#' @importFrom httr GET write_disk
+#' @importFrom mda.streams get_watershed_WFS
+#' @importFrom sbtools current_session
+#' @export
 download_watershed = function(site, destination = NULL, ...){
   
   if (is.null(destination)){

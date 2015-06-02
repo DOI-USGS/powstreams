@@ -13,9 +13,9 @@ site_location(site)
 get site latitude and longitude
 }
 \examples{
-site_location("nwis_11126000")
-site_location('nwis_08377200')
 \dontrun{
+site_location("nwis_11126000")
+site_location("nwis_08377200")
 site_location(list_sites(with_timeseries = c('doobs', 'wtr')))
 }
 }

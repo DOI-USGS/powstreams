@@ -10,8 +10,6 @@ upload_publication(file, ...)
 \item{file}{a file path to the presentation for upload}
 
 \item{...}{additional parameters passed to \code{\link[sbtools]{session_check_reauth}}}
-
-\item{username}{valid sciencebase username (will be prompted for password)}
 }
 \description{
 upload a publication to sciencebase

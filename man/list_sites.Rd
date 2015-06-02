@@ -4,7 +4,7 @@
 \alias{list_sites}
 \title{get site data from a powstreams site}
 \usage{
-list_sites(with_timeseries, logic = c("all", "any"), ...)
+list_sites(with_timeseries = NULL, logic = c("all", "any"), ...)
 }
 \arguments{
 \item{with_timeseries}{NULL to return all sites, or character vector of
@@ -13,6 +13,8 @@ timeseries variables (i.e., 1+ of those listed in get_ts_variables())}
 \item{logic}{how to join the constraints in with_timeseries, ...: is any of
 the listed parameters sufficient, or do you need all of them to be
 available for a site to qualify?}
+
+\item{...}{additional querying terms (not yet implemented)}
 }
 \value{
 a character vector of site IDs
@@ -21,11 +23,17 @@ a character vector of site IDs
 returns data from site into R data.frame
 }
 \examples{
-list_sites() # get all sites
 \dontrun{
-list_sites(with_timeseries = 'wtr') # get all sites with a given type of data
-list_sites(with_timeseries = c('wtr','doobs')) # get all sites with both wtr and doobs data
-list_sites(with_timeseries = c('wtr','doobs'), logic='any') # get all sites with EITHER wtr or doobs data (or both)
+list_sites() # get all sites
+
+# get all sites with a given type of data
+list_sites(with_timeseries = 'wtr')
+
+# get all sites with both wtr and doobs data
+list_sites(with_timeseries = c('wtr','doobs'))
+
+# get all sites with EITHER wtr or doobs data (or both)
+list_sites(with_timeseries = c('wtr','doobs'), logic='any')
 }
 }
 
