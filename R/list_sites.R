@@ -16,6 +16,6 @@
 #' }
 #' @importFrom mda.streams find_sites
 #' @export
-list_sites <- function(with_timeseries, logic=c("all","any"), ...){
+list_sites <- function(with_timeseries, logic=c("all","any"), ...) {
   find_sites(with_timeseries=with_timeseries, logic=logic, ...)
 }

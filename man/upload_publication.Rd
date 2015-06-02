@@ -4,14 +4,14 @@
 \alias{upload_publication}
 \title{upload a publication to sciencebase}
 \usage{
-upload_publication(file, username, ...)
+upload_publication(file, ...)
 }
 \arguments{
 \item{file}{a file path to the presentation for upload}
 
-\item{username}{valid sciencebase username (will be prompted for password)}
+\item{...}{additional parameters passed to \code{\link[sbtools]{session_check_reauth}}}
 
-\item{...}{additional parameters passed to \code{\link[sbtools]{authenticate_sb}}}
+\item{username}{valid sciencebase username (will be prompted for password)}
 }
 \description{
 upload a publication to sciencebase

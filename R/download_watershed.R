@@ -4,7 +4,9 @@
 #'@param destination string for a folder location
 #'@param session a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}). 
 #'Set \code{session = NULL} (default) for sites on sciencebase that are public.
-#'@param ... additional arguments passed to \code{\link[httr]{write_disk}} (e.g., \code{overwrite = TRUE})
+#'@param ... additional arguments passed to \code{\link[httr]{write_disk}} (e.g., \code{overwrite = TRUE}) and 
+#'\code{\link[sbtools]{session_check_reauth}} (e.g., username='user@@usgs.gov')
+#'
 #'@return file handle for downloaded file
 #'@examples
 #'\dontrun{
@@ -12,16 +14,18 @@
 #'}
 #'@importFrom httr GET write_disk
 #'@importFrom mda.streams get_watershed_WFS
+#'@importFrom sbtools current_session
 #'@export
-download_watershed = function(site, destination = NULL, session = NULL, ...){
+download_watershed = function(site, destination = NULL, ...){
   
   if (is.null(destination)){
     file_handle = file.path(tempdir(), paste0(site,'_watershed.zip'))
   } else {
     file_handle = file.path(destination, paste0(site,'_watershed.zip'))
   }
+  
   sb_namespace = 'sb'
-  WFS <- get_watershed_WFS(site, session = session)
+  WFS <- get_watershed_WFS(site, ...)
   
   WFS_url <- strsplit(x = WFS, split = '&')[[1]][1]
   
@@ -29,7 +33,7 @@ download_watershed = function(site, destination = NULL, session = NULL, ...){
   query <- paste0(WFS_url, '&request=GetFeature','&typeName=', sb_namespace,
                   ":",site,'&outputFormat=SHAPE-ZIP')
   
-  http <- GET(url = query, write_disk(file_handle, ...), session = session)
+  http <- GET(url = query, write_disk(file_handle, ...), session = current_session())
   
 
   return(file_handle)
