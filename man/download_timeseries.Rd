@@ -4,7 +4,7 @@
 \alias{download_timeseries}
 \title{download timeseries data to local file destination}
 \usage{
-download_timeseries(site, variable, destination = NULL, session = NULL, ...)
+download_timeseries(site, variable, destination = NULL, ...)
 }
 \arguments{
 \item{site}{a valid powstreams site (see \link{list_sites})}
@@ -13,11 +13,9 @@ download_timeseries(site, variable, destination = NULL, session = NULL, ...)
 
 \item{destination}{string for a folder location}
 
-\item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
-Set \code{session = NULL} (default) for sites on sciencebase that are public.}
-
 \item{...}{additional arguments passed to \code{\link[sbtools]{item_file_download}},
-for example \code{overwrite_file}}
+for example \code{overwrite_file} and \code{\link[sbtools]{session_check_reauth}},
+for example \code{username}}
 }
 \value{
 file handle for downloaded file

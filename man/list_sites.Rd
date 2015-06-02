@@ -4,13 +4,12 @@
 \alias{list_sites}
 \title{get site data from a powstreams site}
 \usage{
-list_sites(with_timeseries = NULL, session = NULL)
+list_sites(with_timeseries = NULL, ...)
 }
 \arguments{
 \item{with_timeseries}{NULL for all sites, or a valid timeseries name}
 
-\item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
-Set \code{session = NULL} (default) for sites on sciencebase that are public.}
+\item{...}{Additional parameters supplied to \code{\link[sbtools]{session_check_reauth}}}
 }
 \value{
 a character vector of powstreams sites according to user-specified parameters

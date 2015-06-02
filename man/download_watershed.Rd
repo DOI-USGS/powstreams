@@ -4,17 +4,18 @@
 \alias{download_watershed}
 \title{download watershed shapefile}
 \usage{
-download_watershed(site, destination = NULL, session = NULL, ...)
+download_watershed(site, destination = NULL, ...)
 }
 \arguments{
 \item{site}{a valid powstreams site (see \link{list_sites})}
 
 \item{destination}{string for a folder location}
 
+\item{...}{additional arguments passed to \code{\link[httr]{write_disk}} (e.g., \code{overwrite = TRUE}) and
+\code{\link[sbtools]{session_check_reauth}} (e.g., username='user@usgs.gov')}
+
 \item{session}{a valid sciencebase session (see \code{\link[sbtools]{authenticate_sb}}).
 Set \code{session = NULL} (default) for sites on sciencebase that are public.}
-
-\item{...}{additional arguments passed to \code{\link[httr]{write_disk}} (e.g., \code{overwrite = TRUE})}
 }
 \value{
 file handle for downloaded file

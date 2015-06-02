@@ -1,7 +1,6 @@
 #'@title get site latitude and longitude 
 #'@param site a valid powstreams site (see \code{\link{list_sites}})
 #'
-#'@importFrom mda.streams split_site
 #'@importFrom dataRetrieval readNWISsite
 #'@examples
 #'site_location("nwis_11126000")
@@ -10,7 +9,7 @@
 #'}
 #'@export
 site_location <- function(site){
-  nwis_site <- split_site(site)
+  nwis_site <- mda.streams:::parse_site_name(site)
   site_data <- readNWISsite(nwis_site)
   lat <- site_data$dec_lat_va
   lon <- site_data$dec_long_va
