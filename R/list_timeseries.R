@@ -6,7 +6,9 @@
 #'@return a character vector of timeseries names, or NULL if none exists. 
 #'@seealso \code{\link{download_timeseries}}
 #'@examples
+#'\dontrun{
 #'list_timeseries(site = 'nwis_01018035')
+#'}
 #'@importFrom mda.streams get_ts_variables
 #'@export
 list_timeseries = function(site, ...){

@@ -6,8 +6,9 @@
 #'@return a character vector of powstreams sites according to user-specified parameters
 #'
 #'@examples
-#'list_sites() # get all sites
+#'
 #'\dontrun{
+#'list_sites() # get all sites
 #'list_sites(with_timeseries = 'wtr') # get all sites with a given type of data
 #'}
 #'@importFrom mda.streams get_sites choose_sites
