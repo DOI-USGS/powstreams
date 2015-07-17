@@ -1,8 +1,9 @@
 library(shiny)
 library(leaflet)
-
+source('helpers.R')
 r_colors <- rgb(t(col2rgb(colors()) / 255))
 names(r_colors) <- colors()
+
 
 shinyUI(fluidPage(
   
@@ -11,14 +12,12 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
       selectInput("variable", label = "Sites to visualize", 
-                  choices = names(mda.streams::get_meta(types = c("basic"))),
-                  selected = "alt", multiple = FALSE),
-      actionButton("recalc", "Submit")
+                  choices = get_types(),
+                  selected = "alt", multiple = FALSE)
     ),
     mainPanel(
       leafletOutput("mymap"),
-  plotOutput("histogram"), 
-  p()
+  plotOutput("histogram")
     )
   )
 ))

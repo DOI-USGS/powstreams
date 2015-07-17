@@ -1,11 +1,14 @@
 library(mda.streams)
 library(unitted)
+source('helpers.R')
+
+
 server <- function(input, output, session) {
   
   pal <- colorQuantile("YlOrRd", NULL, n = 8)
   
   points <- eventReactive(input$recalc, {
-    site_data = v(get_meta(types = c("basic")))
+    site_data = v(get_meta(types = c("basic"), out = c('site_name','long_name','lat','lon',input$variable)))
     site_data[rowSums(is.na(site_data)) == 0,]
   }, ignoreNULL = FALSE)
   
@@ -25,7 +28,7 @@ server <- function(input, output, session) {
   output$histogram <- renderPlot({
     data <- points()
     # Render a barplot
-    hist(data[[input$variable]],
+    hist(data[[input$variable]], breaks = 20,
             ylab="Number",
             xlab=input$variable,
          main = input$variable)
