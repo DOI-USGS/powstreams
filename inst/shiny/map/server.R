@@ -1,4 +1,4 @@
-library(leaflet)
+
 server <- function(input, output, session) {
   
   pal <- leaflet::colorQuantile("YlOrRd", NULL, n = 8)

@@ -2,7 +2,7 @@ Package: powstreams
 Type: Package
 Title: powstreams
 Version: 0.7.0
-Date: 2014-12-08
+Date: 2015-07-17
 Author: Jordan S Read, Luke A Winslow, Alison Appling
 Maintainer: Jordan S Read <jread@usgs.gov>
 Description: tools for working Powell Center working group on stream metabolism.

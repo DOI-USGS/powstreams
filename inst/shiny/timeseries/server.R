@@ -1,19 +1,11 @@
-library(mda.streams)
-library(dygraphs)
-library(unitted)
-library(magrittr)
-library(xts)
-library(RColorBrewer)
-
-
 
 shinyServer(function(input, output) {
   
   downloaded <- function(i){
     
     if (i <= length(input$dataset)){
-      data = xts(NULL)
-      metadata <- get_var_src_codes(var_src==input$dataset[i], out=c('units','var_descrip','var'))
+      data = xts::xts(NULL)
+      metadata <- mda.streams::get_var_src_codes(var_src==input$dataset[i], out=c('units','var_descrip','var'))
       ylab <- paste0(metadata$var_descrip, ' (',metadata$units,')')
       
       for (site in input$site){
@@ -23,13 +15,13 @@ shinyServer(function(input, output) {
           load(file = rdfile) # loads tsobject
         } else {
           message("downloading file:", input$dataset[i])
-          file <- download_ts(var_src = input$dataset[i], site_name = site, on_local_exists = 'skip', on_remote_missing = "return_NA")
+          file <- mda.streams::download_ts(var_src = input$dataset[i], site_name = site, on_local_exists = 'skip', on_remote_missing = "return_NA")
           if (is.na(file))
             tsobject <- xts(NULL)
           else {
             unitt <- read_ts(file)
-            var <- v(unitt)
-            tsobject <- xts(var[[2]], order.by = as.POSIXct(var[['DateTime']]), tz='UTC')
+            var <- unitted::v(unitt)
+            tsobject <- xts::xts(var[[2]], order.by = as.POSIXct(var[['DateTime']]), tz='UTC')
           }
           save(tsobject, list='tsobject', file = rdfile)
         }
@@ -49,10 +41,10 @@ shinyServer(function(input, output) {
   buildDy <- function(i){
     ts <- downloaded(i)
     if (!is.null(ts) && length(ts$data) > 0 ){
-      dygraph(ts$data, group = "powstreams") %>%
-        dyOptions(colors = RColorBrewer::brewer.pal(max(3,length(names(ts$data))), "Dark2")) %>%
-        dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
-        dyAxis("y", label = ts$ylab)
+      dygraphs::dygraph(ts$data, group = "powstreams") %>%
+        dygraphs::dyOptions(colors = RColorBrewer::brewer.pal(max(3,length(names(ts$data))), "Dark2")) %>%
+        dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
+        dygraphs::dyAxis("y", label = ts$ylab)
     }
   }
   
