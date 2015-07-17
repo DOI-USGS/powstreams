@@ -10,10 +10,12 @@ server <- function(input, output, session) {
   }, ignoreNULL = FALSE)
   
   output$mymap <- renderLeaflet({
+    data <- points()
     leaflet() %>%
       addProviderTiles("Stamen.TonerLite",
                        options = providerTileOptions(noWrap = TRUE)
       ) %>%
-      addCircleMarkers(data = points(), radius = 10, color=~pal(alt), popup = ~paste0(long_name, ':', site_name, ' elevation:',alt))
+      addCircleMarkers(data = data, radius = 10, color=~pal(alt), 
+                       popup = ~paste0(long_name, '<br/>', sprintf("<a href='http://waterdata.usgs.gov/usa/nwis/uv?site_no=%s'>%s</a>",sapply(site_name, function(x)strsplit(x,'[_]')[[1]][2]), site_name), '<br/> elevation:',alt))
   })
 }
