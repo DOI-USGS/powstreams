@@ -34,8 +34,17 @@
 #'   \item \code{\link{download_timeseries}} - downloads data from SB into a 
 #'   file
 #'   
-#'   \item \code{\link{download_watershed}} - downloads geospatial data from SB 
-#'   into a file
+#'   }
+#'   
+#' @section interactive data exploration:
+#'   
+#'   \itemize{
+#'   
+#'   \item \code{\link{explore_map}} - explore site metadata with a 
+#'   map interface in a web browser
+#'   
+#'   \item \code{\link{explore_timeseries}} - explore timeseries data with a 
+#'   graph interface in a web browser
 #'   
 #'   }
 #'   

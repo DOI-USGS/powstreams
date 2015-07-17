@@ -4,7 +4,7 @@
 \alias{download_timeseries}
 \title{download timeseries data to local file destination}
 \usage{
-download_timeseries(site, variable, destination = NULL, ...)
+download_timeseries(site, variable, destination = tempdir(), ...)
 }
 \arguments{
 \item{site}{a valid powstreams site (see \link{list_sites})}
@@ -13,9 +13,8 @@ download_timeseries(site, variable, destination = NULL, ...)
 
 \item{destination}{string for a folder location}
 
-\item{...}{additional arguments passed to \code{\link[sbtools]{item_file_download}},
-for example \code{overwrite_file} and \code{\link[sbtools]{session_check_reauth}},
-for example \code{username}}
+\item{...}{additional arguments passed to \code{\link[mda.streams]{download_ts}},
+for example \code{on_local_exists}}
 }
 \value{
 file handle for downloaded file
@@ -24,8 +23,6 @@ file handle for downloaded file
 download a timeseries file to a user-specified (or temp file) location
 }
 \examples{
-\dontrun{
-download_timeseries(site = 'nwis_01018035', variable = 'doobs')
-}
+download_timeseries(site = "nwis_50231500", variable = 'doobs_nwis')
 }
 

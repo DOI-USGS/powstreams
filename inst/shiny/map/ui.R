@@ -1,9 +1,3 @@
-library(shiny)
-library(leaflet)
-source('helpers.R')
-r_colors <- rgb(t(col2rgb(colors()) / 255))
-names(r_colors) <- colors()
-
 
 shinyUI(fluidPage(
   
@@ -16,7 +10,7 @@ shinyUI(fluidPage(
                   selected = "alt", multiple = FALSE)
     ),
     mainPanel(
-      leafletOutput("mymap"),
+      leaflet::leafletOutput("mymap"),
   plotOutput("histogram")
     )
   )
