@@ -6,9 +6,8 @@
 upload_publication <- function(file, ...){
   
   session_check_reauth(...)
-  session = current_session()
   
-  pubs_folder <- mda.streams:::get_publication_id(session)
+  pubs_folder <- locate_folder('publications')
   id_out <- item_upload_create(parent_id = pubs_folder, file)
   url_out <- .url_from_id(id_out)
   return(url_out)

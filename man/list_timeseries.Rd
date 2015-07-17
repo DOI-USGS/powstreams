@@ -4,13 +4,10 @@
 \alias{list_timeseries}
 \title{list timeseries data available for a particular site}
 \usage{
-list_timeseries(site, ...)
+list_timeseries(site)
 }
 \arguments{
 \item{site}{a valid powstreams site (see \link{list_sites})}
-
-\item{...}{additional arguments passed to \code{\link[sbtools]{session_check_reauth}},
-for example \code{username}}
 }
 \value{
 a character vector of timeseries names, or NULL if none exists.
@@ -19,9 +16,7 @@ a character vector of timeseries names, or NULL if none exists.
 list timeseries data available for a particular site
 }
 \examples{
-\dontrun{
-list_timeseries(site = 'nwis_01018035')
-}
+list_timeseries(site = "nwis_50231500")
 }
 \seealso{
 \code{\link{download_timeseries}}

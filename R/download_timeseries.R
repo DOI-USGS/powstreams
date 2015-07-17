@@ -3,19 +3,16 @@
 #'@param site a valid powstreams site (see \link{list_sites})
 #'@param variable a valid variable name for timeseries data
 #'@param destination string for a folder location
-#'@param ... additional arguments passed to \code{\link[sbtools]{item_file_download}}, 
-#'for example \code{overwrite_file} and \code{\link[sbtools]{session_check_reauth}}, 
-#'for example \code{username}
+#'@param ... additional arguments passed to \code{\link[mda.streams]{download_ts}}, 
+#'for example \code{on_local_exists} 
 #'@return file handle for downloaded file
 #'@examples
-#'\dontrun{
-#'download_timeseries(site = 'nwis_01018035', variable = 'doobs')
-#'}
+#'download_timeseries(site = "nwis_50231500", variable = 'doobs_nwis')
 #'@importFrom mda.streams download_ts
 #'@export
-download_timeseries = function(site, variable, destination = NULL, ...){
+download_timeseries = function(site, variable, destination = tempdir(), ...){
   
-  file_handle <- download_ts(site = site, variable = variable, destination = destination, ...)
+  file_handle <- download_ts(var_src = variable, site_name=site , folder = destination, ...)
   
   return(file_handle)
 
