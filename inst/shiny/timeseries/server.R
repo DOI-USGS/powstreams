@@ -17,7 +17,7 @@ shinyServer(function(input, output) {
           message("downloading file:", input$dataset[i])
           file <- mda.streams::download_ts(var_src = input$dataset[i], site_name = site, on_local_exists = 'skip', on_remote_missing = "return_NA")
           if (is.na(file))
-            tsobject <- xts(NULL)
+            tsobject <- xts::xts(NULL)
           else {
             unitt <- read_ts(file)
             var <- unitted::v(unitt)
