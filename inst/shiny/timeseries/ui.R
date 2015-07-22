@@ -1,4 +1,6 @@
 library(dygraphs)
+initial.site = "nwis_06893820"
+initial.var = "doobs_nwis"
 
 shinyUI(fluidPage(
   
@@ -7,12 +9,11 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
       selectInput("site", label = "Sites to visualize", 
-                  choices = mda.streams::get_sites(),
-                  selected = "nwis_06893820", multiple = TRUE),
+                  choices = mda.streams::list_sites(),
+                  selected = initial.site, multiple = TRUE),
       selectizeInput("dataset", label = "Timeseries dataset",
-                  choices = c("baro_nldas", "wtr_nwis", "doobs_nwis", "disch_nwis","stage_nwis","dosat_calcGGbts",
-                              "er_estDOMLEPRK","K600_estDOMLEPRK","gpp_estDOMLEPRK"),
-                  selected = "doobs_nwis", multiple = TRUE, options = list(maxItems = 3)),
+                  choices = mda.streams::list_datasets(initial.site),
+                  selected = initial.var, multiple = TRUE, options = list(maxItems = 3)),
       submitButton("Submit")
     ),
     mainPanel(
