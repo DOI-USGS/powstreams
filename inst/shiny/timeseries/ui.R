@@ -15,7 +15,8 @@ shinyUI(fluidPage(
       uiOutput("Box1"),
       uiOutput("Box2"),
       uiOutput("Box3"),
-      actionButton("render", "Render visuals")
+      actionButton("render", "Render visuals"),
+      actionButton("kill", "Stop application")
       
     ),
     mainPanel("Display results",

@@ -99,6 +99,9 @@ shinyServer(function(input, output, session) {
   # -- </render-ui-selections> -- 
   
   # -- <trigger-ui-render> -- 
+  observeEvent(input$kill,{
+    stopApp()
+    })
     output$Box4 <-renderText(paste(c(input$dataset1, input$dataset2, input$dataset3)))
   
     dy1 <- eventReactive(input$render, {
