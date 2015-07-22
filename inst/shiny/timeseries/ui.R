@@ -1,25 +1,3 @@
-# 
-
-# 
-# shinyUI(fluidPage(
-#   
-#   titlePanel("Powstreams working group"),
-#   
-#   sidebarLayout(
-#     sidebarPanel(
-#       selectInput("site", label = "Sites to visualize", 
-#                   choices = sites.list,
-#                   selected = initial.site, multiple = TRUE),
-#       selectizeInput("dataset", label = "Timeseries dataset",
-#                   choices = mda.streams::list_datasets(initial.site),
-#                   selected = initial.var, multiple = TRUE, options = list(maxItems = 3)),
-#       submitButton("Submit")
-#     ),
-#     mainPanel(
-#       fluidRow(column(3, verbatimTextOutput("dataset")))
-#     )
-#   )
-# ))
 
 initial.site = "nwis_06893820"
 

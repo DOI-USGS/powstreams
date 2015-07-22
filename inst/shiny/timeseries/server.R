@@ -5,7 +5,65 @@ library(shiny)
 shinyServer(function(input, output, session) {
   
   
+  # -- <dygraphs-builder> --
+  buildDy <- function(i){
+    ts <- downloaded(i)
+    if (!is.null(ts) && length(ts$data) > 0 ){
+      dygraphs::dygraph(ts$data, group = "powstreams") %>%
+        dygraphs::dyOptions(colors = RColorBrewer::brewer.pal(max(3,length(names(ts$data))), "Dark2")) %>%
+        dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
+        dygraphs::dyAxis("y", label = ts$ylab)
+    }
+  }
+  # -- </dygraphs-builder> --
   
+  # -- <cache-and-download> --
+  downloaded <- function(i){
+    datasets <- grep('dataset',names(input))
+    datanames <- c()
+     for (d in datasets){
+       if (input[[names(input)[d]]] != noneselected)
+         datanames <- c(datanames, input[[names(input)[d]]])
+     }
+    
+    if (i <= length(datanames)){
+      data = xts::xts(NULL)
+      metadata <- mda.streams::get_var_src_codes(var_src==datanames[i], out=c('units','var_descrip','var'))
+      ylab <- paste0(metadata$var_descrip, ' (',metadata$units,')')
+      
+      for (site in input$site){
+        rdfile <- file.path(tempdir(),paste0(site,'-ts_',datanames[i],'.RData'))
+        if (file.exists(rdfile)){
+          message("file is cached, using local:", datanames[i])
+          load(file = rdfile) # loads tsobject
+        } else {
+          message("downloading file:", datanames[i])
+          file <- mda.streams::download_ts(var_src = datanames[i], site_name = site, 
+                                           on_local_exists = 'skip', on_remote_missing = "return_NA")
+          if (is.na(file))
+            tsobject <- xts::xts(NULL)
+          else {
+            unitt <- mda.streams::read_ts(file)
+            var <- unitted::v(unitt)
+            tsobject <- xts::xts(var[[2]], order.by = as.POSIXct(var[['DateTime']]), tz='UTC')
+          }
+          save(tsobject, list='tsobject', file = rdfile)
+        }
+        
+        oldnames <- names(data)
+        data <- merge(data, tsobject)
+        if(length(tsobject) > 0)
+          names(data) <- c(oldnames,paste0(site,' (',metadata$units,')'))
+        
+      }
+      list(data=data, ylab=ylab, units = metadata$units, var=metadata$var)
+    } else {
+      NULL
+    }# // else do nothing
+  }
+  # -- </cache-and-download> -- 
+  
+  # -- <render-ui-selections> -- 
   output$Box1 = renderUI(
     if (is.null(input$site)){
       return()
@@ -38,9 +96,23 @@ shinyServer(function(input, output, session) {
                   multiple = FALSE, selected=noneselected)
     }
   )
+  # -- </render-ui-selections> -- 
   
+  # -- <trigger-ui-render> -- 
   observeEvent(input$render, {
+    
+    
     output$Box4 <-renderText(paste(c(input$dataset1, input$dataset2, input$dataset3)))
-  })
   
+    output[['dygraph1']] <- renderDygraph({
+      buildDy(1)
+    })
+    output[['dygraph2']] <- renderDygraph({
+      buildDy(2)
+    })
+    output[['dygraph3']] <- renderDygraph({
+      buildDy(3)
+    })
+})
+  # -- </trigger-ui-render> -- 
 })
