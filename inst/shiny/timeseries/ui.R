@@ -9,10 +9,10 @@ shinyUI(fluidPage(
       selectInput("site", label = "Sites to visualize", 
                   choices = mda.streams::get_sites(),
                   selected = "nwis_06893820", multiple = TRUE),
-      selectInput("dataset", label = "Timeseries dataset",
+      selectizeInput("dataset", label = "Timeseries dataset",
                   choices = c("baro_nldas", "wtr_nwis", "doobs_nwis", "disch_nwis","stage_nwis","dosat_calcGGbts",
                               "er_estDOMLEPRK","K600_estDOMLEPRK","gpp_estDOMLEPRK"),
-                  selected = "doobs_nwis", multiple = TRUE),
+                  selected = "doobs_nwis", multiple = TRUE, options = list(maxItems = 3)),
       submitButton("Submit")
     ),
     mainPanel(
