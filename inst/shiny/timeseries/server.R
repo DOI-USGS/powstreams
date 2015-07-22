@@ -99,20 +99,19 @@ shinyServer(function(input, output, session) {
   # -- </render-ui-selections> -- 
   
   # -- <trigger-ui-render> -- 
-  observeEvent(input$render, {
-    
-    
     output$Box4 <-renderText(paste(c(input$dataset1, input$dataset2, input$dataset3)))
   
-    output[['dygraph1']] <- renderDygraph({
+    dy1 <- eventReactive(input$render, {
       buildDy(1)
     })
-    output[['dygraph2']] <- renderDygraph({
+    output$dygraph1 <- renderDygraph({dy1()})
+    dy2 <- eventReactive(input$render, {
       buildDy(2)
     })
-    output[['dygraph3']] <- renderDygraph({
+    output$dygraph2 <- renderDygraph({dy2()})
+    dy3 <- eventReactive(input$render, {
       buildDy(3)
     })
-})
+    output$dygraph3 <- renderDygraph({dy3()})
   # -- </trigger-ui-render> -- 
 })
