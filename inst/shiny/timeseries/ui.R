@@ -15,8 +15,8 @@ shinyUI(fluidPage(
       uiOutput("Box1"),
       uiOutput("Box2"),
       uiOutput("Box3"),
-      actionButton("render", "Render visuals"),
-      actionButton("kill", "Stop application")
+      actionButton("render", "Render visuals", icon = icon("spinner", lib = "font-awesome")),
+      actionButton("kill", "Stop application", icon = icon("remove-sign", lib = "glyphicon"))
       
     ),
     mainPanel("Display results",
