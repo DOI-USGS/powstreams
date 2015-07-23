@@ -63,6 +63,20 @@ shinyServer(function(input, output, session) {
   }
   # -- </cache-and-download> -- 
   
+  site_data = unitted::v(mda.streams::get_meta(types = c("basic"), out = c('site_name','long_name','lat','lon')))
+  
+  output$mymap <- leaflet::renderLeaflet({
+    data_used <- site_data[site_data$site_name %in% input$site, ]
+    popups <- sprintf("<a href='http://waterdata.usgs.gov/usa/nwis/uv?site_no=%s target=_blank>%s</a><br/> value:sd",
+                      sapply(data_used$site_name, function(x)strsplit(x,'[_]')[[1]][2]),data_used$site_name)
+    leaflet::leaflet() %>%
+      leaflet::addProviderTiles("CartoDB.Positron",
+                                options = leaflet::providerTileOptions(noWrap = TRUE)) %>% 
+      leaflet::addCircleMarkers(data = data_used, radius = 10,
+                                popup = ~paste0(long_name, '<br/>', 
+                                               sprintf("<a href='%s' target=_blank>%s</a>",mda.streams::locate_site(site_name, 'url', browser=FALSE), site_name)))
+  })
+  
   # -- <render-ui-selections> -- 
   output$Box1 = renderUI(
     if (is.null(input$site)){
@@ -102,7 +116,6 @@ shinyServer(function(input, output, session) {
   observeEvent(input$kill,{
     stopApp()
     })
-    output$Box4 <-renderText(paste(c(input$dataset1, input$dataset2, input$dataset3)))
   
     dy1 <- eventReactive(input$render, {
       buildDy(1)
