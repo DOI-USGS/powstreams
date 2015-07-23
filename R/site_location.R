@@ -2,7 +2,6 @@
 #' @param site a valid powstreams site (see \code{\link{list_sites}})
 #'   
 #' @importFrom mda.streams find_site_coords
-#' @importFrom dataRetrieval readNWISsite
 #' @examples
 #' \dontrun{
 #' site_location("nwis_11126000")
