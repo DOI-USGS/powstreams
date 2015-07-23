@@ -1,8 +1,8 @@
 Package: powstreams
 Type: Package
 Title: powstreams
-Version: 0.7.0
-Date: 2015-07-17
+Version: 0.7.2
+Date: 2015-07-21
 Author: Jordan S Read, Luke A Winslow, Alison Appling
 Maintainer: Jordan S Read <jread@usgs.gov>
 Description: tools for working Powell Center working group on stream metabolism.
@@ -15,10 +15,9 @@ Copyright: This software is in the public domain because it contains materials
 Depends:
     R (>= 3.0)
 Imports:
-    mda.streams,
+    mda.streams (>= 0.7.13),
     sbtools,
     dplyr,
-    dataRetrieval,
     shiny,
     unitted,
     dygraphs,
