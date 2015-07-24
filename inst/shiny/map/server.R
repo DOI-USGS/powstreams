@@ -1,5 +1,4 @@
 library(leaflet)
-
 server <- function(input, output, session) {
   
   
@@ -31,21 +30,23 @@ server <- function(input, output, session) {
       ) %>%
       leaflet::addCircleMarkers(data = data, radius = 10, color=~ramp(data[[input$variable]]),
                        popup = ~paste0(long_name, '<br/>', 
-                                      sprintf("<a href='%s' target=_blank>%s</a>",sciencebase_id,site_name), '<br/> value: ',data[[input$variable]],' (',units[[input$variable]],')'))
+                                      sprintf("<a href='https://www.sciencebase.gov/catalog/folder/%s' target=_blank>%s</a>",sciencebase_id,site_name), '<br/> ',
+                                      tail(strsplit(input$variable,'[.]')[[1]],1),': ',data[[input$variable]],' (',units[[input$variable]],')'))
   })
   
   observeEvent(input$kill,{
     stopApp()
   })
   
+    
   output$histogram <- renderPlot({
     data_out <- points()
     data = data_out$data
     units = data_out$units
     # Render a barplot
-    hist(data[[input$variable]], breaks = 20,
+    hist(data[[input$variable]],
             ylab="Number",
-            xlab=input$variable,
-         main = input$variable)
+            xlab=paste0(tail(strsplit(input$variable,'[.]')[[1]],1),' (',units[[input$variable]],')'),
+         main = NA)
   })
 }
