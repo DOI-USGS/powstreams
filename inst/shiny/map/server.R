@@ -24,14 +24,17 @@ server <- function(input, output, session) {
     }, error = function(e) {
       leaflet::colorBin("YlOrRd", NULL, n = 7)
     })
+    
+    leg_vals <- tail(pretty(data[[input$variable]], 6),-1)
     leaflet::leaflet() %>%
       leaflet::addProviderTiles("CartoDB.Positron",
-                       options = leaflet::providerTileOptions(noWrap = TRUE)
-      ) %>%
+                       options = leaflet::providerTileOptions(noWrap = TRUE)) %>%
       leaflet::addCircleMarkers(data = data, radius = 10, color=~ramp(data[[input$variable]]),
                        popup = ~paste0(long_name, '<br/>', 
                                       sprintf("<a href='https://www.sciencebase.gov/catalog/folder/%s' target=_blank>%s</a>",sciencebase_id,site_name), '<br/> ',
-                                      tail(strsplit(input$variable,'[.]')[[1]],1),': ',data[[input$variable]],' (',units[[input$variable]],')'))
+                                      tail(strsplit(input$variable,'[.]')[[1]],1),': ',data[[input$variable]],' ',units[[input$variable]])) %>%
+      leaflet::addLegend(values = leg_vals, colors = ramp(leg_vals), title = tail(strsplit(input$variable,'[.]')[[1]],1), 
+                         bins = length(leg_vals), labels=paste0(leg_vals,' ',units[[input$variable]]))
   })
   
   observeEvent(input$kill,{
