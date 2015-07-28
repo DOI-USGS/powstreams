@@ -23,8 +23,9 @@ server <- function(input, output, session) {
       leg_vals <<- unname(quantile(data[[input$variable]], na.rm=T))
       pal
     }, error = function(e) {
-      leaflet::colorBin("YlOrRd", NULL, n = 7)
+      
       leg_vals <<- tail(pretty(data[[input$variable]], 6),-1)
+      leaflet::colorBin("YlOrRd", NULL, n = 7)
     })
     
     
