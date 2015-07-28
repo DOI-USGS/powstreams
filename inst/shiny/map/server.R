@@ -20,12 +20,14 @@ server <- function(input, output, session) {
     
     ramp = tryCatch({
       pal(data[[input$variable]])
+      leg_vals <<- unname(quantile(data[[input$variable]], na.rm=T))
       pal
     }, error = function(e) {
       leaflet::colorBin("YlOrRd", NULL, n = 7)
+      leg_vals <<- tail(pretty(data[[input$variable]], 6),-1)
     })
     
-    leg_vals <- tail(pretty(data[[input$variable]], 6),-1)
+    
     leaflet::leaflet() %>%
       leaflet::addProviderTiles("CartoDB.Positron",
                        options = leaflet::providerTileOptions(noWrap = TRUE)) %>%
