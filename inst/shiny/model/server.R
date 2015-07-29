@@ -1,54 +1,76 @@
+library(dygraphs)
+library(datasets)
+library(powstreams)
 
-noneselected = "-- no variable selected --"
-
-library(shiny)
-shinyServer(function(input, output, session) {
+shinyServer(function(input, output) {
   
-  # -- <cache-and-download> --
-  downloaded <- function(){
-    files <- mda.streams::list_metab_run_files(input$model)
-    file <- files$filename[grep('RData',tools::file_ext(files$filename))[1]]
+  
+  metabolism <- reactive({
+    model <<- powstreams:::model # site-specific, run-specific model object
+    u_i <- model@fit[c('minimum')] < input$min | is.na(model@fit[c('minimum')]) # keep the NAs to break up the plot
+    data = model@fit[c('GPP','ER')]
+    data[!u_i,] <- NA
+    ts = xts::xts(x = data, order.by = as.POSIXct(model@fit$date))
+    return(ts)
+  })
+  
+  output$Box1 <- renderUI({
+    # default to median of data
+    sliderInput("min", "minimum threshold:", 
+                min = min(model@fit[[c('minimum')]], na.rm=T), max = max(model@fit[[c('minimum')]], na.rm=T), 
+                value = c(min(model@fit[[c('minimum')]], na.rm=T), floor(quantile(model@fit[[c('minimum')]], na.rm=T)[[3]])), step= 0.5)
+  })
+  
+  
+  
+  k600 <- reactive({
+    data = model@fit$K600
+    u_i <- model@fit[c('minimum')] < input$min | is.na(model@fit[c('minimum')]) # keep the NAs to break up the plot
+    data[!u_i] <- NA
+    ts = xts::xts(x = data, order.by = as.POSIXct(model@fit$date)) %>% 
+      setNames("K600")
+    return(ts)
+  })
+  
+#   k600 <- reactive({
+#     ts = xts::xts(x = model@fit[c('K600')][u_i], order.by = as.POSIXct(model@fit$date))
+#     return(ts)
+#   })
+  colors = RColorBrewer::brewer.pal(5, "Dark2")
+  output$dygraph1 <- renderDygraph({
+    dygraph(metabolism(), group = "powstreams") %>%
+      dygraphs::dyOptions(colors = colors[1:2], drawPoints=TRUE, pointSize=4) %>%
+      dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
+      dygraphs::dyAxis('y', label="Metabolism (units...)") %>%
+      dySeries(c("GPP"), label = "Dsdfths") %>%
+      dySeries(c("ER"), label = "Dsdf") 
+  })
+  output$dygraph2 <- renderDygraph({
+    dygraph(k600(), group = "powstreams") %>%
+      dygraphs::dyOptions(colors = colors[3], drawPoints=TRUE, pointSize=4) %>%
+      dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
+      dygraphs::dyAxis('y', label="K600 (units...)") %>%
+      dySeries(c("K600"), label = "Dsdfths")
+  })
+  output$dygraph3 <- renderDygraph({
+    dygraph(k600(), group = "powstreams") %>%
+      dygraphs::dyOptions(colors = colors[4], drawPoints=TRUE, pointSize=4) %>%
+      dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
+      dygraphs::dyAxis('y', label="Metabolism (units...)") %>%
+      dySeries(c("K600"), label = "Dsdfths")
+  })
+  
+  plots <- reactive({
+    u_i <- model@fit[c('minimum')] < input$min | is.na(model@fit[c('minimum')]) # keep the NAs to break up the plot
+    par(mfcol=c(1,3))
+    plot(model@fit[c('K600','ER')][u_i,])
+    plot(model@fit[c('GPP','ER')][u_i,])
+    plot(model@fit[c('K600','ER')][u_i,])
     
-    file <- mda.streams::download_metab_run(input$model, file, on_local_exists = 'skip')
-    load(file)
-    data = xts::xts(NULL)
-    if (!exists('all_out')) # hack alert!!@!!!!
-      all_out = metab_all
-    data <- xts::xts(all_out[[2]]@fit$GPP, order.by = as.POSIXct(all_out[[2]]@fit$date), tz='UTC')
-    return(list(data = data, ylab='things', units='units for this thing',var = 'GPP'))
-  }
-  
-  
-  site_data = unitted::v(mda.streams::get_meta(types = c("basic"), out = c('site_name','long_name','lat','lon')))
-  
-  output$mymap <- leaflet::renderLeaflet({
-    data_used <- site_data[site_data$site_name %in% input$site, ]
-    popups <- sprintf("<a href='http://waterdata.usgs.gov/usa/nwis/uv?site_no=%s target=_blank>%s</a><br/> value:sd",
-                      sapply(data_used$site_name, function(x)strsplit(x,'[_]')[[1]][2]),data_used$site_name)
-    leaflet::leaflet() %>%
-      leaflet::addProviderTiles("CartoDB.Positron",
-                                options = leaflet::providerTileOptions(noWrap = TRUE)) %>% 
-      leaflet::addCircleMarkers(data = data_used, radius = 10,
-                                popup = ~paste0(long_name, '<br/>', 
-                                                sprintf("<a href='%s' target=_blank>%s</a>",mda.streams::locate_site(site_name, 'url', browser=FALSE), site_name)))
   })
   
-  observeEvent(input$kill,{
-    stopApp()
+  output$plot <- renderPlot({
+    plots()
   })
-  dy1 <- eventReactive(input$render, {
-    buildDy()
-  })
-  output$dygraph1 <- renderDygraph({dy1()})
-  # -- <dygraphs-builder> --
-  buildDy <- function(){
-    ts <- downloaded()
-    if (!is.null(ts) && length(ts$data) > 0 ){
-      dygraphs::dygraph(ts$data, group = "powstreams") %>%
-        dygraphs::dyOptions(colors = RColorBrewer::brewer.pal(max(3,length(names(ts$data))), "Dark2")) %>%
-        dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
-        dygraphs::dyAxis("y", label = ts$ylab)
-    }
-  }
-  # -- </dygraphs-builder> --
+  
 })
