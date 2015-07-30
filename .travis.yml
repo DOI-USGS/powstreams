@@ -4,23 +4,28 @@
 # see the wiki:
 #   https://github.com/craigcitro/r-travis/wiki
 
-language: objective-c
+language: r
+sudo: required
+warnings_are_errors: false
 
 before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-install:
-  - ./travis-tool.sh install_deps
-  - ./travis-tool.sh github_package jimhester/covr
-  - ./travis-tool.sh install_github appling/unitted
-  - ./travis-tool.sh install_github USGS-R/streamMetabolizer
-  - ./travis-tool.sh install_github USGS-R/sbtools
-  - ./travis-tool.sh install_github USGS-R/geoknife
-  - ./travis-tool.sh install_github USGS-R/mda.streams
-
- 
-script: ./travis-tool.sh run_tests
+  - wget http://owi.usgs.gov/R/r-buildtools/JAGS-3.4.0.tar.gz
+  - tar xfvs JAGS-3.4.0.tar.gz
+  - cd JAGS-3.4.0
+  - sudo ./configure
+  - sudo make
+  - sudo make install
+  - cd ..
+  - sudo rm -f JAGS-3.4.0.tar.gz
+  - sudo rm -rf JAGS-3.4.0
+  
+r_github_packages:
+  - jimhester/covr
+  - appling/unitted
+  - USGS-R/streamMetabolizer
+  - USGS-R/sbtools
+  - USGS-R/mda.streams
+  - USGS-R/geoknife
 
 after_success:
   - Rscript -e 'covr::coveralls()'
@@ -32,3 +37,4 @@ notifications:
   email:
     on_success: change
     on_failure: change
+	
