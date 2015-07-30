@@ -1,5 +1,6 @@
 library(dygraphs)
 library(datasets)
+library(DT)
 library(powstreams)
 metab_models = add_rownames(parse_metab_model_name(list_metab_models()),'model_name') %>% as.data.frame()
 
