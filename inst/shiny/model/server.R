@@ -89,6 +89,7 @@ shinyServer(function(input, output) {
     
     plots.list <- list(list(x='K600',y='ER'), list(x='GPP',y='ER'), list(x='GPP',y='K600'))
     layout(matrix(c(1:length(plots.list)),nrow=1))
+    par(pty="s",mar=c(3.5,3.5,0.5,0.5))
     for (p in seq_len(length(plots.list))){
       gs <- gsplot::gsplot()
       if (!is.null(names(models))){
