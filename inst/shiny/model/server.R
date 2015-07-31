@@ -83,6 +83,9 @@ shinyServer(function(input, output) {
     buildDy("K600", "K600 (d^-1)")
   })
   # </--- viz components --->
+  observeEvent(input$kill,{
+    stopApp()
+  })
   plots <- reactive({ 
     react_model_data()
     
