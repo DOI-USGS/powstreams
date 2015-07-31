@@ -20,7 +20,7 @@ Imports:
     dplyr,
     DT,
     shiny,
-    gsplot,
+    gsplot (>= 0.2.2),
     unitted,
     dygraphs,
     xts,
