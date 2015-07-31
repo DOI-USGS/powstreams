@@ -2,7 +2,7 @@
 % Please edit documentation in R/explore_map.R
 \name{explore_map}
 \alias{explore_map}
-\title{explore powstreams site metadata on a map}
+\title{Explore powstreams site metadata on a map}
 \usage{
 explore_map(browse = TRUE)
 }
@@ -10,6 +10,6 @@ explore_map(browse = TRUE)
 \item{browse}{use browser for map rendering}
 }
 \description{
-open an interactive map for site data
+Open an interactive map for site data
 }
 

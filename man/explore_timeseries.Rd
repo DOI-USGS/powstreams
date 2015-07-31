@@ -2,7 +2,7 @@
 % Please edit documentation in R/explore_timeseries.R
 \name{explore_timeseries}
 \alias{explore_timeseries}
-\title{explore powstreams timeseries data on graphs}
+\title{Explore powstreams timeseries data on graphs}
 \usage{
 explore_timeseries(browse = TRUE)
 }
@@ -10,6 +10,6 @@ explore_timeseries(browse = TRUE)
 \item{browse}{use browser for graph rendering}
 }
 \description{
-open interactive graphs for timeseries data
+Open interactive graphs for timeseries data
 }
 
