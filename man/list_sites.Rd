@@ -2,7 +2,7 @@
 % Please edit documentation in R/list_sites.R
 \name{list_sites}
 \alias{list_sites}
-\title{Higher-level site querying function}
+\title{Get a list of the sites on ScienceBase}
 \arguments{
 \item{with_var_src}{character vector of data variables (i.e., 1+ of those
 listed in get_var_src_codes(out='var_src'))}
@@ -17,7 +17,8 @@ for a site to qualify?}
 a character vector of site IDs
 }
 \description{
-Higher-level site querying function
+The with_var_src argument optionally limits the list to those sites that
+contain specific timeseries variables.
 }
 \examples{
 \dontrun{
