@@ -9,7 +9,7 @@
 #' @export
 upload_presentation <- function(file){
   
-  if(is.null(current_session())) stop("need ScienceBase access; call login_sb() first")
+  if(is.null(current_session())) login_sb()
   
   pres_folder <- locate_folder('presentations')
   id_out <- item_upload_create(parent_id = pres_folder, file)
