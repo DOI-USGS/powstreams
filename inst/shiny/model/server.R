@@ -11,6 +11,15 @@ models <<- list()
 
 shinyServer(function(input, output) {
   
+  # <---input reactive--->
+  react_model_data <- reactive({
+    if (length(input$x1_rows_selected)>0)
+      get_model_data()
+    return()
+  })
+  # </---input reactive--->
+  
+  # <---helpers--->
   get_model_data <- function(){
     for (row in input$x1_rows_selected){
       r.chr <- as.character(row)
@@ -32,15 +41,7 @@ shinyServer(function(input, output) {
     models <<- models
     return()
   }
-  
-  react_model_data <- reactive({
-    if (length(input$x1_rows_selected)>0){
-      return(get_model_data())
-    } else {
-      return()
-    }
-  })
-  
+
   merge_extract <- function(var){
     if (is.null(names(models))){
       return(empty.xts)
@@ -48,43 +49,38 @@ shinyServer(function(input, output) {
       ts.out <- null.xts
       for (nm in names(models)){
         df <- data.frame(xts::xts(models[[nm]]@fit[[var]], order.by=models[[nm]]@fit[['date']])) %>% 
-          setNames(paste(var,models[[nm]]@info$strategy,models[[nm]]@info$site, models[[nm]]@info$tag, sep='_'))
+          setNames(paste(var,models[[nm]]@info$site, models[[nm]]@info$strategy, models[[nm]]@info$tag, sep='.'))
         ts.out <- merge(ts.out, df)
       }
       return(ts.out)
     }
   }
   
+  buildDy <- function(var){
+    react_model_data()
+    data = merge_extract(var)
+    dygraph(data, group = "powstreams") %>%
+      dygraphs::dyOptions(colors = colors[seq_len(ncol(data))], drawPoints=TRUE, pointSize=2) %>%
+      dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
+      dygraphs::dyAxis('y', label="Metabolism (units...)")
+  }
+  # </---helpers--->
+  
+  # <--- viz components --->
   output$x1 = DT::renderDataTable(metab_models[,c(-1,-2)], server = FALSE, rownames=FALSE, #filter='top',
                                   options=list(pageLength=15,
                                                order=list(list(2,'desc'))))
-
   colors = RColorBrewer::brewer.pal(5, "Dark2")
   output$dygraph1 <- renderDygraph({
-    react_model_data()
-    data = merge_extract('GPP')
-    dygraph(data, group = "powstreams") %>%
-      dygraphs::dyOptions(colors = colors[seq_len(ncol(data))], drawPoints=TRUE, pointSize=2) %>%
-      dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
-      dygraphs::dyAxis('y', label="Metabolism (units...)")
+    buildDy("GPP")
   })
   output$dygraph2 <- renderDygraph({
-    react_model_data()
-    data = merge_extract('ER')
-    dygraph(data, group = "powstreams") %>%
-      dygraphs::dyOptions(colors = colors[seq_len(ncol(data))], drawPoints=TRUE, pointSize=2) %>%
-      dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
-      dygraphs::dyAxis('y', label="Metabolism (units...)")
+    buildDy("ER")
   })
   output$dygraph3 <- renderDygraph({
-    react_model_data()
-    data = merge_extract('K600')
-    dygraph(data, group = "powstreams") %>%
-      dygraphs::dyOptions(colors = colors[seq_len(ncol(data))], drawPoints=TRUE, pointSize=2) %>%
-      dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
-      dygraphs::dyAxis('y', label="K600 (units...)") 
+    buildDy("K600")
   })
-  
+  # </--- viz components --->
 #   plots <- reactive({
 #     data = get_model_data()
 #     #u_i <- model@fit[c('minimum')] < input$min | is.na(model@fit[c('minimum')]) # keep the NAs to break up the plot
