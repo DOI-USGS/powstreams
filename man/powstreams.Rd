@@ -75,14 +75,3 @@ lower-level functions generic to all ScienceBase tasks, see \pkg{sbtools}.
   }
 }
 
-\section{Internal functions}{
-
-
-  \itemize{
-
-  \item \code{.url_from_id} - given an item ID, produces a URL that
-  will take you to that item
-
-  }
-}
-
