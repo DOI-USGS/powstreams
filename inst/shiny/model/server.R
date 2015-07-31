@@ -15,6 +15,8 @@ shinyServer(function(input, output) {
   react_model_data <- reactive({
     if (length(input$x1_rows_selected)>0)
       get_model_data()
+    else
+      models <<- list()
     return()
   })
   # </---input reactive--->
@@ -81,32 +83,34 @@ shinyServer(function(input, output) {
     buildDy("K600")
   })
   # </--- viz components --->
-#   plots <- reactive({
-#     data = get_model_data()
-#     #u_i <- model@fit[c('minimum')] < input$min | is.na(model@fit[c('minimum')]) # keep the NAs to break up the plot
-#     par(mfcol=c(1,3))
-#     plot(as.numeric(data$K600[,1]), as.numeric(data$ER[,1]), col=colors[1], asp=1)
-#     if (ncol(data$K600)>1){
-#       for (i in seq_len(ncol(data$K600))[-1]){
-#         points(as.numeric(data$K600[,i]), as.numeric(data$ER[,i]), col=colors[i])
-#       }
-#     }
-#     plot(as.numeric(data$GPP[,1]), as.numeric(data$ER[,1]), col=colors[1], asp=1)
-#     if (ncol(data$GPP)>1){
-#       for (i in seq_len(ncol(data$GPP))[-1]){
-#         points(as.numeric(data$GPP[,i]), as.numeric(data$ER[,i]), col=colors[i])
-#       }
-#     }
-#     plot(as.numeric(data$K600[,1]), as.numeric(data$ER[,1]), col=colors[1], asp=1)
-#     if (ncol(data$K600)>1){
-#       for (i in seq_len(ncol(data$K600))[-1]){
-#         points(as.numeric(data$K600[,i]), as.numeric(data$ER[,i]), col=colors[i])
-#       }
-#     }
-#   })
-#   
-#   output$plot <- renderPlot({
-#     plots()
-#   })
+  plots <- reactive({ 
+    react_model_data()
+    
+    
+    plots.list <- list(list(x='K600',y='ER'), list(x='GPP',y='ER'), list(x='GPP',y='K600'))
+    layout(matrix(c(1:length(plots.list)),nrow=1))
+    par(pty="s",mar=c(3.5,3.5,0.5,0.5))
+    for (p in seq_len(length(plots.list))){
+      gs <- gsplot::gsplot()
+      if (!is.null(names(models))){
+        for (i in seq_len(length(names(models)))){
+          x <- models[[i]]@fit[[plots.list[[p]]$x]]
+          y <- models[[i]]@fit[[plots.list[[p]]$y]]
+          if(any(is.null(c(x,y)))){
+            x = y = NA
+          }
+          gs <- gsplot::points(gs, x, y,
+                               col=colors[i], ylab=plots.list[[p]]$y,xlab=plots.list[[p]]$x)
+        }
+      } else {
+        gs <- gsplot::points(gs, c(1,NA),c(NA,1), ylab=plots.list[[p]]$y,xlab=plots.list[[p]]$x)
+      }
+      print(gs)
+    }
+  })
+  
+  output$plot <- renderPlot({
+    plots()
+  })
   
 })
