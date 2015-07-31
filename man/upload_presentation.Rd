@@ -4,14 +4,13 @@
 \alias{upload_presentation}
 \title{upload a presentation to sciencebase}
 \usage{
-upload_presentation(file, ...)
+upload_presentation(file)
 }
 \arguments{
 \item{file}{a file path to the presentation for upload}
-
-\item{...}{additional parameters passed to \code{\link[sbtools]{session_check_reauth}}}
 }
 \description{
-upload a presentation to sciencebase
+You must be logged into ScienceBase with \code{\link{sb_login}} to use this
+function
 }
 
