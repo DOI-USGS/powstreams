@@ -58,13 +58,13 @@ shinyServer(function(input, output) {
     }
   }
   
-  buildDy <- function(var){
+  buildDy <- function(var, label){
     react_model_data()
     data = merge_extract(var)
     dygraph(data, group = "powstreams") %>%
       dygraphs::dyOptions(colors = colors[seq_len(ncol(data))], drawPoints=TRUE, pointSize=2) %>%
       dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
-      dygraphs::dyAxis('y', label="Metabolism (units...)")
+      dygraphs::dyAxis('y', label=label)
   }
   # </---helpers--->
   
@@ -74,13 +74,13 @@ shinyServer(function(input, output) {
                                                order=list(list(2,'desc'))))
   colors = RColorBrewer::brewer.pal(5, "Dark2")
   output$dygraph1 <- renderDygraph({
-    buildDy("GPP")
+    buildDy("GPP",'GPP (g m^-2 d^-1)')
   })
   output$dygraph2 <- renderDygraph({
-    buildDy("ER")
+    buildDy("ER","ER (g m^-2 d^-1)")
   })
   output$dygraph3 <- renderDygraph({
-    buildDy("K600")
+    buildDy("K600", "K600 (d^-1)")
   })
   # </--- viz components --->
   plots <- reactive({ 
