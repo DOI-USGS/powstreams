@@ -1,6 +1,6 @@
 #' upload a presentation to sciencebase
 #' 
-#' You must be logged into ScienceBase with \code{\link{sb_login}} to use this
+#' You must be logged into ScienceBase with \code{\link{login_sb}} to use this
 #' function
 #' 
 #' @param file a file path to the presentation for upload
@@ -9,7 +9,7 @@
 #' @export
 upload_presentation <- function(file){
   
-  if(is.null(current_session())) stop("session is NULL. call sb_login() before uploading")
+  if(is.null(current_session())) login_sb()
   
   pres_folder <- locate_folder('presentations')
   id_out <- item_upload_create(parent_id = pres_folder, file)

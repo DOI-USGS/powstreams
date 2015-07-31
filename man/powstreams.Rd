@@ -25,7 +25,7 @@ lower-level functions generic to all ScienceBase tasks, see \pkg{sbtools}.
 
   \item \code{\link{list_sites}}
 
-  \item \code{\link{list_timeseries}}
+  \item \code{\link{list_tses}}
 
   }
 }
@@ -35,14 +35,11 @@ lower-level functions generic to all ScienceBase tasks, see \pkg{sbtools}.
 
   \itemize{
 
-  \item \code{\link{site_location}} - downloads lat/long from SB into the R
-  session
+  \item \code{\link{get_site_info}} - reports basic site information
 
-  \item \code{\link{load_timeseries}} - downloads data from SB into the R
-  session
+  \item \code{\link{get_ts}} - loads data from SB into R
 
-  \item \code{\link{download_ts}} - downloads data from SB into a
-  file
+  \item \code{\link{download_ts}} - downloads data from SB into a file
 
   }
 }
@@ -52,11 +49,14 @@ lower-level functions generic to all ScienceBase tasks, see \pkg{sbtools}.
 
   \itemize{
 
-  \item \code{\link{explore_map}} - explore site metadata with a
-  map interface in a web browser
+  \item \code{\link{explore_map}} - explore site metadata with an interactive
+  map in a web browser
 
-  \item \code{\link{explore_timeseries}} - explore timeseries data with a
-  graph interface in a web browser
+  \item \code{\link{explore_timeseries}} - explore timeseries data with
+  interactive graphs in a web browser
+
+  \item \code{\link{explore_model}} - explore a metabolism model with
+  interactive graphs in a web browser
 
   }
 }

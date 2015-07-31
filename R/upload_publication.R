@@ -1,6 +1,6 @@
 #' Upload a publication to sciencebase
 #'
-#' You must be logged into ScienceBase with \code{\link{sb_login}} to use this
+#' You must be logged into ScienceBase with \code{\link{login_sb}} to use this
 #' function
 #' 
 #' @param file a file path to the presentation for upload
@@ -9,7 +9,7 @@
 #' @export
 upload_publication <- function(file){
   
-  if(is.null(current_session())) stop("session is NULL. call sb_login() before uploading")
+  if(is.null(current_session())) login_sb()
   
   pubs_folder <- locate_folder('publications')
   id_out <- item_upload_create(parent_id = pubs_folder, file)
