@@ -2,7 +2,6 @@
 #' 
 #' @param site_name a valid powstreams site name (see \link{list_sites})
 #' @return a character vector of timeseries names, or NULL if none exists. 
-#' @seealso \code{\link{download_ts}}
 #' @examples
 #' list_tses(site = "nwis_50231500")
 #' 

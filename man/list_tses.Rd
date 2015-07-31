@@ -15,7 +15,4 @@ List the timeseries data available for a particular site
 \examples{
 list_tses(site = "nwis_50231500")
 }
-\seealso{
-\code{\link{download_ts}}
-}
 

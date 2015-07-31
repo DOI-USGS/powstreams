@@ -4,8 +4,8 @@
 \alias{get_ts}
 \title{Bring one or more timeseries into R and merge them}
 \usage{
-download_ts(var_src, site_name, folder = tempdir(), on_remote_missing
-  = c("stop", "return_NA"), on_local_exists = c("stop", "skip", "replace"))
+get_ts(var_src, site_name, method = "approx", approx_tol =
+  as.difftime(3, units = "hours"), on_local_exists = "skip")
 }
 \arguments{
 \item{var_src}{a valid variable name for timeseries data (see

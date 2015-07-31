@@ -39,7 +39,7 @@ lower-level functions generic to all ScienceBase tasks, see \pkg{sbtools}.
 
   \item \code{\link{get_ts}} - loads data from SB into R
 
-  \item \code{\link{download_ts}} - downloads data from SB into a file
+  \item \code{\link{export_ts}} - exports data from R into a text file
 
   }
 }
