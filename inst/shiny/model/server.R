@@ -5,7 +5,8 @@ library(powstreams)
 
 noneselected = "-- no variable selected --"
 metab_models = dplyr::add_rownames(mda.streams::parse_metab_model_name(mda.streams::list_metab_models()),'model_name') %>% as.data.frame()
-
+empty.xts <- data.frame('NA'=xts::xts(c(NA,NA), order.by=as.POSIXct(c('2012-01-01','2012-01-02'))))
+null.xts <- xts::xts(NULL)
 models <<- list()
 
 shinyServer(function(input, output) {
@@ -24,8 +25,10 @@ shinyServer(function(input, output) {
       } # // else: skip it, because it is already in the list
     }
     rmv.nm <- names(models)[!names(models) %in% as.character(input$x1_rows_selected)]
-    # remove all models that aren't selected ____ NOT IMPLEMENTED!!____CHECK THIS!
-    models[[rmv.nm]] <- NULL
+    # remove all models that aren't selected 
+    for (nm in rmv.nm){
+      models[[nm]] <- NULL
+    }
     models <<- models
     return()
   }
@@ -38,10 +41,18 @@ shinyServer(function(input, output) {
     }
   })
   
-  merge_extract <- function(){
-    empty.xts <- xts::xts(c(NA,NA), order.by=as.POSIXct(c('2012-01-01','2012-01-02')))
-    names(empty.xts) <- 'NA'
-    return(empty.xts)
+  merge_extract <- function(var){
+    if (is.null(names(models))){
+      return(empty.xts)
+    } else {
+      ts.out <- null.xts
+      for (nm in names(models)){
+        df <- data.frame(xts::xts(models[[nm]]@fit[[var]], order.by=models[[nm]]@fit[['date']])) %>% 
+          setNames(paste(var,models[[nm]]@info$strategy,models[[nm]]@info$site, models[[nm]]@info$tag, sep='_'))
+        ts.out <- merge(ts.out, df)
+      }
+      return(ts.out)
+    }
   }
   
   output$x1 = DT::renderDataTable(metab_models[,c(-1,-2)], server = FALSE, rownames=FALSE, #filter='top',
@@ -51,21 +62,23 @@ shinyServer(function(input, output) {
   colors = RColorBrewer::brewer.pal(5, "Dark2")
   output$dygraph1 <- renderDygraph({
     react_model_data()
-    data = merge_extract()
+    data = merge_extract('GPP')
     dygraph(data, group = "powstreams") %>%
       dygraphs::dyOptions(colors = colors[seq_len(ncol(data))], drawPoints=TRUE, pointSize=2) %>%
       dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
       dygraphs::dyAxis('y', label="Metabolism (units...)")
   })
   output$dygraph2 <- renderDygraph({
-    data = merge_extract()
+    react_model_data()
+    data = merge_extract('ER')
     dygraph(data, group = "powstreams") %>%
       dygraphs::dyOptions(colors = colors[seq_len(ncol(data))], drawPoints=TRUE, pointSize=2) %>%
       dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
       dygraphs::dyAxis('y', label="Metabolism (units...)")
   })
   output$dygraph3 <- renderDygraph({
-    data = merge_extract()
+    react_model_data()
+    data = merge_extract('K600')
     dygraph(data, group = "powstreams") %>%
       dygraphs::dyOptions(colors = colors[seq_len(ncol(data))], drawPoints=TRUE, pointSize=2) %>%
       dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
