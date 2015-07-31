@@ -2,16 +2,15 @@
 % Please edit documentation in R/upload_publication.R
 \name{upload_publication}
 \alias{upload_publication}
-\title{upload a publication to sciencebase}
+\title{Upload a publication to sciencebase}
 \usage{
-upload_publication(file, ...)
+upload_publication(file)
 }
 \arguments{
 \item{file}{a file path to the presentation for upload}
-
-\item{...}{additional parameters passed to \code{\link[sbtools]{session_check_reauth}}}
 }
 \description{
-upload a publication to sciencebase
+You must be logged into ScienceBase with \code{\link{sb_login}} to use this
+function
 }
 

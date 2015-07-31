@@ -1,6 +1,6 @@
-#' explore powstreams timeseries data on graphs
+#' Explore powstreams timeseries data on graphs
 #' 
-#' open interactive graphs for timeseries data
+#' Open interactive graphs for timeseries data
 #' 
 #' @param browse use browser for graph rendering
 #' @export
