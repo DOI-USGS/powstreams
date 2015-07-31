@@ -31,7 +31,7 @@
 #'   \item \code{\link{load_timeseries}} - downloads data from SB into the R 
 #'   session
 #'   
-#'   \item \code{\link{download_timeseries}} - downloads data from SB into a 
+#'   \item \code{\link{download_ts}} - downloads data from SB into a 
 #'   file
 #'   
 #'   }

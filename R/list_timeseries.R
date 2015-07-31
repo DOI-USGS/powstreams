@@ -2,7 +2,7 @@
 #'@description list timeseries data available for a particular site
 #'@param site a valid powstreams site (see \link{list_sites})
 #'@return a character vector of timeseries names, or NULL if none exists. 
-#'@seealso \code{\link{download_timeseries}}
+#'@seealso \code{\link{download_ts}}
 #'@examples
 #'list_timeseries(site = "nwis_50231500")
 #'@importFrom mda.streams list_datasets

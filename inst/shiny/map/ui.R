@@ -6,7 +6,7 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
       selectInput("variable", label = "Variable to visualize", 
-                  choices = get_types(),
+                  choices = powstreams:::get_numeric_meta_columns(),
                   selected = "alt", multiple = FALSE),
       actionButton("kill", "Stop application", icon = icon("remove-sign", lib = "glyphicon")),
       br(),

@@ -19,6 +19,6 @@ list timeseries data available for a particular site
 list_timeseries(site = "nwis_50231500")
 }
 \seealso{
-\code{\link{download_timeseries}}
+\code{\link{download_ts}}
 }
 
