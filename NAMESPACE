@@ -2,6 +2,7 @@
 
 export(download_ts)
 export(explore_map)
+export(explore_model)
 export(explore_timeseries)
 export(list_sites)
 export(list_timeseries)
