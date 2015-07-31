@@ -6,8 +6,8 @@
 #' will be out of date relative to ScienceBase, but the benefit is faster 
 #' ts-getting.
 #' 
-#' @usage download_ts(var_src, site_name, folder = tempdir(), on_remote_missing 
-#'   = c("stop", "return_NA"), on_local_exists = c("stop", "skip", "replace"))
+#' @usage get_ts(var_src, site_name, method = "approx", approx_tol = 
+#'   as.difftime(3, units = "hours"), on_local_exists = "skip")
 #' @param var_src a valid variable name for timeseries data (see 
 #'   \code{dplyr::select(dplyr::filter(var_src_codes, data_type=='ts'), 
 #'   var_src)})
