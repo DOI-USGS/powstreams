@@ -16,11 +16,11 @@
 #'   
 #' @seealso \code{\link[unitted]{write_unitted}}, \code{\link{write.table}}
 #' @export
-export_data <- function(data, file="", with.units=is.unitted(data), comment.char = "#", sep = "\t", row.names = FALSE, quote = FALSE, ...) {
+export_data <- function(data, file="", keep.units=is.unitted(data), comment.char = "#", sep = "\t", row.names = FALSE, quote = FALSE, ...) {
   if(is.unitted(data) & isTRUE(with.units)) {
     write_unitted(data, file=file, comment.char=comment.char, sep=sep, row.names=row.names, quote=quote, ...)
   } else {
-    write.table(v(data), file=file, comment.char=comment.char, sep=sep, row.names=row.names, quote=quote, ...)
+    write.table(v(data), file=file, sep=sep, row.names=row.names, quote=quote, ...)
   }
   invisible(file)
 }

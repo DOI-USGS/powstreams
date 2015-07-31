@@ -4,7 +4,7 @@
 \alias{export_data}
 \title{Export data to a local text file}
 \usage{
-export_data(data, file = "", with.units = is.unitted(data),
+export_data(data, file = "", keep.units = is.unitted(data),
   comment.char = "#", sep = "\\t", row.names = FALSE, quote = FALSE,
   ...)
 }
@@ -12,6 +12,9 @@ export_data(data, file = "", with.units = is.unitted(data),
 \item{data}{a data.frame or unitted_data.frame of data}
 
 \item{file,}{The file to write to, as in \code{\link{write.table}}}
+
+\item{keep.units}{logical. if data has units, should these be written as a
+second line (just beneath the header) in the text file?}
 
 \item{comment.char}{a single character, or "", with which to prepend the line
 containing units information}
@@ -26,9 +29,6 @@ containing units information}
 \code{\link{write.table}}}
 
 \item{...}{other arguments passed to \code{\link{write.table}}}
-
-\item{keep.units}{logical. if data has units, should these be written as a
-second line (just beneath the header) in the text file?}
 }
 \description{
 Export data to a local text file
