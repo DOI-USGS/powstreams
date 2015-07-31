@@ -25,13 +25,13 @@
 load_timeseries = function(site, variables, join.fun=inner_join, ...){
   	
   # we read gzip compression directly w/ httr::GET? see ls(httr:::parsers)
-  file_handle <- download_timeseries(site, variables[1], destination = NULL, overwrite = TRUE, ...)
+  file_handle <- download_ts(site, variables[1], destination = NULL, overwrite = TRUE, ...)
   
   timeseries <- read_ts(file_handle)
   
   if (length(variables) > 1){
     for (i in 2:length(variables)){
-      file_handle <- download_timeseries(site, variables[i], destination = NULL, overwrite = TRUE, ...)
+      file_handle <- download_ts(site, variables[i], destination = NULL, overwrite = TRUE, ...)
       data <- read_ts(file_handle)
       timeseries <- join.fun(x = timeseries, y = data, by = 'DateTime')
     }
