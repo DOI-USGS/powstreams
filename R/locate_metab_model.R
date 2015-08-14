@@ -10,7 +10,8 @@
 #' @param browser logical. Should the URL be opened in a browser?
 #' @examples 
 #' \dontrun{
-#' locate_metab_model("nwis_01473900-16-150730 0.0.7 MLE_for_PRK_wHarvey_and_sw", format="url", browser=FALSE)
+#' locate_metab_model("nwis_01473900-16-150730 0.0.7 MLE_for_PRK_wHarvey_and_sw", 
+#'   format="url", browser=FALSE)
 #' }
 #' @importFrom mda.streams locate_metab_model
 #' @name locate_metab_model

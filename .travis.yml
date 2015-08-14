@@ -24,8 +24,9 @@ r_github_packages:
   - appling/unitted
   - USGS-R/streamMetabolizer
   - USGS-R/sbtools
-  - USGS-R/mda.streams
+  - USGS-R/gsplot
   - USGS-R/geoknife
+  - USGS-R/mda.streams
 
 after_success:
   - Rscript -e 'covr::coveralls()'
