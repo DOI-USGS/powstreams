@@ -13,7 +13,7 @@ upload_publication <- function(file){
   
   pubs_folder <- locate_folder('publications')
   id_out <- item_upload_create(parent_id = pubs_folder, file)
-  url_out <- paste0(sbtools:::pkg.env$url_item, id_out)
+  url_out <- paste0("https://www.sciencebase.gov/catalog/item/", id_out)
   return(url_out)
   
 }

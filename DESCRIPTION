@@ -17,15 +17,15 @@ Depends:
 Imports:
     mda.streams (>= 0.7.21),
     sbtools,
-    dplyr,
-    DT,
     shiny,
-    gsplot (>= 0.2.2),
     unitted,
     dygraphs,
     xts,
     leaflet
 Suggests:
+    DT,
+    dplyr,
+    gsplot (>= 0.2.2),
     testthat
 LazyLoad: yes
 LazyData: yes
