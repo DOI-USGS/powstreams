@@ -4,10 +4,16 @@
 \alias{get_site_info}
 \title{Get a very basic summary of a site}
 \usage{
-get_site_info(site_name)
+get_site_info(site_name, on_missing = c("NA", "omit"), attach.units = TRUE)
 }
 \arguments{
 \item{site_name}{the name[s] of the site[s], e.g., 'nwis_05515500'}
+
+\item{on_missing}{character specifying how to treat missing sites. Use "NA"
+to include missing sites in the output but with NA for both lon and lat.
+Use "omit" to omit those sites from the output.}
+
+\item{attach.units}{logical. Should units be attached?}
 }
 \description{
 Get a very basic summary of a site
