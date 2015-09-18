@@ -7,7 +7,8 @@
 #' ts-getting.
 #' 
 #' @usage get_ts(var_src, site_name, method = "approx", approx_tol = 
-#'   as.difftime(3, units = "hours"), on_local_exists = "skip")
+#'   as.difftime(3, units = "hours"), on_local_exists = "skip", on_invalid =
+#'   "stop")
 #' @param var_src a valid variable name for timeseries data (see 
 #'   \code{dplyr::select(dplyr::filter(var_src_codes, data_type=='ts'), 
 #'   var_src)})
@@ -18,6 +19,8 @@
 #'   2nd:nth data argument to combine_ts (relative to the first argument)
 #' @param on_local_exists character indicating what to do if the folder already 
 #'   contains a file with the intended download name
+#' @param on_invalid character in \code{c("stop","warn")} indicating how to 
+#'   handle invalid timeseries
 #'   
 #' @importFrom mda.streams get_ts
 #' @name get_ts

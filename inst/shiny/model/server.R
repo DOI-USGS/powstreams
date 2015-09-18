@@ -1,6 +1,7 @@
 library(dygraphs)
 library(datasets)
 library(DT)
+library(streamMetabolizer)
 library(powstreams)
 
 noneselected = "-- no variable selected --"
@@ -28,8 +29,8 @@ shinyServer(function(input, output) {
       if (is.null(names(models)) || !names(models) %in% r.chr){
         file = download_metab_model(metab_models[row, ]$model_name, on_local_exists = 'skip')
         if (file.size(file) > 0){
-          load(file) # site-specific, run-specific model object
-          models[[r.chr]] <- mm
+          varname <- load(file) # site-specific, run-specific model object
+          models[[r.chr]] <- mda.streams::modernize_metab_model(get(varname))
         } else {
           models[[r.chr]] <- list() # empty model
         }
@@ -50,8 +51,8 @@ shinyServer(function(input, output) {
     } else {
       ts.out <- null.xts
       for (nm in names(models)){
-        df <- data.frame(xts::xts(models[[nm]]@fit[[var]], order.by=models[[nm]]@fit[['date']])) %>% 
-          setNames(paste(var,models[[nm]]@info$site, models[[nm]]@info$strategy, models[[nm]]@info$tag, sep='.'))
+        df <- data.frame(xts::xts(get_fit(models[[nm]])[[var]], order.by=get_fit(models[[nm]])[['local.date']])) %>% 
+          setNames(paste(var,get_info(models[[nm]])$config$site, get_info(models[[nm]])$config$strategy, get_info(models[[nm]])$config$tag, sep='.'))
         ts.out <- merge(ts.out, df)
       }
       return(ts.out)
