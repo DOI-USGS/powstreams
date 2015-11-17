@@ -1,9 +1,8 @@
 
-noneselected = "-- no variable selected --"
+noneselected <- "-- no variable selected --"
 
 library(shiny)
 shinyServer(function(input, output, session) {
-  
   
   # -- <dygraphs-builder> --
   buildDy <- function(i){
@@ -21,10 +20,10 @@ shinyServer(function(input, output, session) {
   downloaded <- function(i){
     datasets <- grep('dataset',names(input))
     datanames <- c()
-     for (d in datasets){
-       if (input[[names(input)[d]]] != noneselected)
-         datanames <- c(datanames, input[[names(input)[d]]])
-     }
+    for (d in datasets){
+      if (input[[names(input)[d]]] != noneselected)
+        datanames <- c(datanames, input[[names(input)[d]]])
+    }
     
     if (i <= length(datanames)){
       data = xts::xts(NULL)
@@ -45,6 +44,14 @@ shinyServer(function(input, output, session) {
           else {
             unitt <- mda.streams::read_ts(file)
             var <- unitted::v(unitt)
+            if(nrow(var) == 1) {
+              var <- data.frame(dt=var[c(1,1),1], val=var[[1,2]]) %>% setNames(names(var))
+              if(is.na(var[[1,1]])) {
+                var[1] <- as.POSIXct(paste0(c("2007-10-01","2015-10-01"), " 00:00:00"), tz='UTC')
+              } else {
+                var[1] <- var[[1,1]] + as.difftime(i+c(-1,4), units="secs")
+              }
+            }
             tsobject <- xts::xts(var[[2]], order.by = as.POSIXct(var[['DateTime']]), tz='UTC')
           }
           save(tsobject, list='tsobject', file = rdfile)
