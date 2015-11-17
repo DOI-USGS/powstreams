@@ -47,7 +47,7 @@ shinyServer(function(input, output, session) {
             if(nrow(var) == 1) {
               var <- data.frame(dt=var[c(1,1),1], val=var[[1,2]]) %>% setNames(names(var))
               if(is.na(var[[1,1]])) {
-                var[1] <- as.POSIXct(paste0(c("2007-10-01","2015-10-01"), " 00:00:00"), tz='UTC')
+                var[1] <- as.POSIXct(paste0(c("2006-10-01",format(Sys.Date(), "%Y-%m-%d")), " 00:00:00"), tz='UTC')
               } else {
                 var[1] <- var[[1,1]] + as.difftime(i+c(-1,4), units="secs")
               }
@@ -98,7 +98,7 @@ shinyServer(function(input, output, session) {
       return()
     } else {
       selection <- if(is.null(input$dataset1)) NA else input$dataset1
-      box.options <- c(boxes.options()[!(boxes.options() %in% c(input$dataset2,input$dataset3))], noneselected)
+      box.options <- sort(c(boxes.options()[!(boxes.options() %in% c(input$dataset2,input$dataset3))], noneselected))
       if(!(selection %in% box.options)) selection <- noneselected
       selectInput("dataset1", label="Variables to visualize", choices=box.options, multiple=FALSE, selected=selection)
     }
@@ -108,7 +108,7 @@ shinyServer(function(input, output, session) {
       return()
     } else {
       selection <- if(is.null(input$dataset2)) NA else input$dataset2
-      box.options <- c(boxes.options()[!(boxes.options() %in% c(input$dataset1,input$dataset3))], noneselected)
+      box.options <- sort(c(boxes.options()[!(boxes.options() %in% c(input$dataset1,input$dataset3))], noneselected))
       if(!(selection %in% box.options)) selection <- noneselected
       selectInput("dataset2", label=NULL, choices=box.options, multiple=FALSE, selected=selection)
     }
@@ -118,7 +118,7 @@ shinyServer(function(input, output, session) {
       return()
     } else {
       selection <- if (is.null(input$dataset3)) NA else input$dataset3
-      box.options <- c(boxes.options()[!(boxes.options() %in% c(input$dataset1,input$dataset2))], noneselected)
+      box.options <- sort(c(boxes.options()[!(boxes.options() %in% c(input$dataset1,input$dataset2))], noneselected))
       if(!(selection %in% box.options)) selection <- noneselected
       selectInput("dataset3", label=NULL, choices=box.options, multiple=FALSE, selected=selection)
     }
