@@ -4,10 +4,10 @@ library(DT)
 library(streamMetabolizer)
 library(powstreams)
 
-noneselected = "-- no variable selected --"
-metab_models = dplyr::add_rownames(mda.streams::parse_metab_model_name(mda.streams::list_metab_models()),'model_name') %>% as.data.frame()
-empty.xts <- data.frame('NA'=xts::xts(c(NA,NA), order.by=as.POSIXct(c('2012-01-01','2012-01-02'))))
-null.xts <- xts::xts(NULL)
+noneselected <- "-- no variable selected --"
+metab_models <- dplyr::add_rownames(mda.streams::parse_metab_model_name(mda.streams::list_metab_models()),'model_name') %>% as.data.frame()
+empty.xts <- setNames(xts::xts(c(NA,NA), order.by=as.POSIXct(c('2012-01-01','2012-01-02'))), "none")
+null.xts <- empty.xts[c(),]
 models <<- list()
 
 shinyServer(function(input, output) {
@@ -44,24 +44,37 @@ shinyServer(function(input, output) {
     models <<- models
     return()
   }
-
+  
   merge_extract <- function(var){
     if (is.null(names(models))){
       return(empty.xts)
     } else {
       ts.out <- null.xts
       for (nm in names(models)){
-        df <- data.frame(xts::xts(get_fit(models[[nm]])[[var]], order.by=get_fit(models[[nm]])[['local.date']])) %>% 
-          setNames(paste(var,get_info(models[[nm]])$config$site, get_info(models[[nm]])$config$strategy, get_info(models[[nm]])$config$tag, sep='.'))
+        pnm <- parse_metab_model_name(metab_models[nm,'model_name'])
+        model_tag <- paste(pnm$site, pnm$tag, pnm$row, sep='_')
+        vardat <- predict_metab(models[[nm]])
+        if(nrow(vardat) > 0) {
+          vardat <- vardat[c('local.date',grep(var, names(vardat), value=TRUE))]
+          if(nrow(vardat) == 1) {
+            vardat <- data.frame(
+              dt=vardat[[1,1]] + as.difftime(i+c(-1,4), units="secs"), 
+              vardat[1,-1]) %>% setNames(names(vardat))
+          }
+          df <- data.frame(xts::xts(vardat[[var]], order.by=vardat[['local.date']])) %>% setNames(model_tag)
+        } else {
+          df <- null.xts
+        }
         ts.out <- merge(ts.out, df)
       }
+      if(length(ts.out) == 0) ts.out <- empty.xts
       return(ts.out)
     }
   }
   
   buildDy <- function(var, label){
     react_model_data()
-    data = merge_extract(var)
+    data <- merge_extract(var)
     dygraph(data, group = "powstreams") %>%
       dygraphs::dyOptions(colors = colors[seq_len(ncol(data))], drawPoints=TRUE, pointSize=2) %>%
       dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
@@ -70,27 +83,26 @@ shinyServer(function(input, output) {
   # </---helpers--->
   
   # <--- viz components --->
-  output$x1 = DT::renderDataTable(metab_models[,c(-1,-2)], server = FALSE, rownames=FALSE, #filter='top',
-                                  options=list(pageLength=15,
-                                               order=list(list(2,'desc'))))
+  output$x1 = DT::renderDataTable(
+    metab_models[,c(4,5,6,3,7)], server = FALSE, rownames=FALSE,
+    options=list(pageLength=15, order=list(list(1,'desc'))))
   colors = RColorBrewer::brewer.pal(5, "Dark2")
   output$dygraph1 <- renderDygraph({
-    buildDy("GPP",'GPP (g m^-2 d^-1)')
+    buildDy("GPP", "GPP (g m^-2 d^-1)")
   })
   output$dygraph2 <- renderDygraph({
-    buildDy("ER","ER (g m^-2 d^-1)")
+    buildDy("ER", "ER (g m^-2 d^-1)")
   })
   output$dygraph3 <- renderDygraph({
     buildDy("K600", "K600 (d^-1)")
   })
+  
   # </--- viz components --->
   observeEvent(input$kill,{
     stopApp()
   })
   plots <- reactive({ 
     react_model_data()
-    
-    
     plots.list <- list(list(x='K600',y='ER'), list(x='GPP',y='ER'), list(x='GPP',y='K600'))
     layout(matrix(c(1:length(plots.list)),nrow=1))
     par(pty="s",mar=c(3.5,3.5,0.5,0.5))
@@ -103,8 +115,7 @@ shinyServer(function(input, output) {
           if(any(is.null(c(x,y)))){
             x = y = NA
           }
-          gs <- gsplot::points(gs, x, y,
-                               col=colors[i], ylab=plots.list[[p]]$y,xlab=plots.list[[p]]$x)
+          gs <- gsplot::points(gs, x, y, col=colors[i], ylab=plots.list[[p]]$y,xlab=plots.list[[p]]$x)
         }
       } else {
         gs <- gsplot::points(gs, c(1,NA),c(NA,1), ylab=plots.list[[p]]$y,xlab=plots.list[[p]]$x)
