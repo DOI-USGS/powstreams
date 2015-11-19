@@ -110,8 +110,9 @@ shinyServer(function(input, output) {
       gs <- gsplot::gsplot()
       if (!is.null(names(models))){
         for (i in seq_len(length(names(models)))){
-          x <- models[[i]]@fit[[plots.list[[p]]$x]]
-          y <- models[[i]]@fit[[plots.list[[p]]$y]]
+          met <- predict_metab(models[[i]])
+          x <- met[[plots.list[[p]]$x]]
+          y <- met[[plots.list[[p]]$y]]
           if(any(is.null(c(x,y)))){
             x = y = NA
           }
