@@ -27,7 +27,14 @@ shinyUI(fluidPage(
           ),
           tabPanel(
             "Correlations",
-            plotOutput("plot")
+            fluidRow(
+              column(6, plotlyOutput("regplot_tl")),
+              column(6, plotlyOutput("regplot_tr"))
+            ),
+            fluidRow(
+              column(6, plotlyOutput("regplot_bl")),
+              column(6, plotlyOutput("regplot_br"))
+            )
           )
         )
       )

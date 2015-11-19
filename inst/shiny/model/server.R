@@ -3,6 +3,9 @@ library(datasets)
 library(DT)
 library(streamMetabolizer)
 library(powstreams)
+library(dplyr)
+library(unitted)
+library(plotly)
 
 noneselected <- "-- no variable selected --"
 metab_models <- dplyr::add_rownames(mda.streams::parse_metab_model_name(mda.streams::list_metab_models()),'model_name') %>% as.data.frame()
@@ -25,9 +28,9 @@ shinyServer(function(input, output) {
   # <---helpers--->
   get_model_data <- function(){
     for (row in input$x1_rows_selected){
-      r.chr <- as.character(row)
-      if (is.null(names(models)) || !names(models) %in% r.chr){
-        file = download_metab_model(metab_models[row, ]$model_name, on_local_exists = 'skip')
+      r.chr <- metab_models[row, 'model_name']
+      if (is.null(names(models)) || !(r.chr %in% names(models))) {
+        file = download_metab_model(r.chr, on_local_exists = 'skip')
         if (file.size(file) > 0){
           varname <- load(file) # site-specific, run-specific model object
           models[[r.chr]] <- mda.streams::modernize_metab_model(get(varname))
@@ -36,7 +39,7 @@ shinyServer(function(input, output) {
         }
       } # // else: skip it, because it is already in the list
     }
-    rmv.nm <- names(models)[!names(models) %in% as.character(input$x1_rows_selected)]
+    rmv.nm <- names(models)[!names(models) %in% metab_models[input$x1_rows_selected, 'model_name']]
     # remove all models that aren't selected 
     for (nm in rmv.nm){
       models[[nm]] <- NULL
@@ -101,32 +104,40 @@ shinyServer(function(input, output) {
   observeEvent(input$kill,{
     stopApp()
   })
-  plots <- reactive({ 
+  regression_data <- reactive({
     react_model_data()
-    plots.list <- list(list(x='K600',y='ER'), list(x='GPP',y='ER'), list(x='GPP',y='K600'))
-    layout(matrix(c(1:length(plots.list)),nrow=1))
-    par(pty="s",mar=c(3.5,3.5,0.5,0.5))
-    for (p in seq_len(length(plots.list))){
-      gs <- gsplot::gsplot()
-      if (!is.null(names(models))){
-        for (i in seq_len(length(names(models)))){
-          met <- predict_metab(models[[i]])
-          x <- met[[plots.list[[p]]$x]]
-          y <- met[[plots.list[[p]]$y]]
-          if(any(is.null(c(x,y)))){
-            x = y = NA
-          }
-          gs <- gsplot::points(gs, x, y, col=colors[i], ylab=plots.list[[p]]$y,xlab=plots.list[[p]]$x)
-        }
-      } else {
-        gs <- gsplot::points(gs, c(1,NA),c(NA,1), ylab=plots.list[[p]]$y,xlab=plots.list[[p]]$x)
-      }
-      print(gs)
-    }
+    dplyr::bind_rows(lapply(names(models), function(nm) {
+      m <- models[[nm]]
+      preds <- predict_metab(m)
+      if(nrow(preds)==0) preds <- data.frame(local.date=NA, GPP=NA, ER=NA, K600=NA)
+      site <- get_info(m)$config$site
+      coords <- get_site_info(site)
+      amps <- tryCatch(
+        get_ts("doamp_calcDAmp", site) %>% unitted::v() %>%
+          mutate(local.date=as.Date(convert_GMT_to_solartime(DateTime, longitude=coords$lon))) %>%
+          select(local.date, doamp), 
+        error=function(e) data.frame(local.date=preds$local.date, doamp=NA))
+      data.frame(model=nm, dplyr::full_join(preds, amps, by="local.date"), stringsAsFactors=FALSE)
+    }))
   })
-  
-  output$plot <- renderPlot({
-    plots()
+  buildReg <- function(reg_data, xvar, yvar) {
+    if(nrow(reg_data)==0) return()
+    plot_ly(reg_data, x=reg_data[[xvar]], y=reg_data[[yvar]], type='scatter', color=model, mode='markers', opacity=0.8,
+            text=sprintf('%s<br>%s<br>%s = %0.1f<br>%s = %0.1f', model, as.character(local.date), xvar, reg_data[[xvar]], yvar, reg_data[[yvar]]), 
+            hoverinfo='text+x') %>%
+      layout(xaxis=list(title=xvar), yaxis=list(title=ifelse(yvar=='doamp', 'Daily amplitude of DO (% sat)', yvar)))
+  }
+  output$regplot_tl <- renderPlotly({ 
+    buildReg(regression_data(), 'GPP', 'doamp')
+  })
+  output$regplot_tr <- renderPlotly({ 
+    buildReg(regression_data(), 'ER', 'GPP')
+  })
+  output$regplot_bl <- renderPlotly({ 
+    buildReg(regression_data(), 'GPP', 'K600')
+  })
+  output$regplot_br <- renderPlotly({ 
+    buildReg(regression_data(), 'ER', 'K600')
   })
   
 })
