@@ -1,15 +1,14 @@
 library(dygraphs)
+library(plotly)
 library(mda.streams)
 library(dplyr)
 shinyUI(fluidPage(
-  
-  
   fluidPage(
     fluidRow(
       column(
         5,
-        h1("Powstreams working group CollabApp"),
-        DT::dataTableOutput('x1'),
+        h1("Powstreams CollabApp - Models"),
+        DT::dataTableOutput('model_list'),
         actionButton("kill", "Stop application", icon = icon("remove-sign", lib = "glyphicon")),
         br(),
         br(),
@@ -20,21 +19,25 @@ shinyUI(fluidPage(
         7,
         tabsetPanel(
           tabPanel(
-            "Estimates", 
-            dygraphOutput("dygraph1", height = 200),
-            dygraphOutput("dygraph2", height = 200),
-            dygraphOutput("dygraph3", height = 200)
+           "Estimates", 
+           dygraphOutput("dygraph1", height = 200),
+           dygraphOutput("dygraph2", height = 200),
+           dygraphOutput("dygraph3", height = 200)
           ),
           tabPanel(
-            "Correlations",
-            fluidRow(
-              column(6, plotlyOutput("regplot_tl")),
-              column(6, plotlyOutput("regplot_tr"))
-            ),
-            fluidRow(
-              column(6, plotlyOutput("regplot_bl")),
-              column(6, plotlyOutput("regplot_br"))
-            )
+           "Correlations",
+           fluidRow(
+             column(6, plotlyOutput("regplot_tl")),
+             column(6, plotlyOutput("regplot_tr"))
+           ),
+           fluidRow(
+             column(6, plotlyOutput("regplot_bl")),
+             column(6, plotlyOutput("regplot_br"))
+           )
+          ),
+          tabPanel(
+           "Summary",
+           DT::dataTableOutput('summary')
           )
         )
       )
