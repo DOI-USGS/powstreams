@@ -128,6 +128,8 @@ shinyServer(function(input, output) {
   })
   buildReg <- function(reg_data, xvar, yvar) {
     message("building regression plot")
+    rownames(reg_data) <- NULL
+    reg_data <- reg_data[complete.cases(reg_data[c(xvar,yvar)]),]
     if(nrow(reg_data)==0) return()
     axisunits <- unique(get_var_src_codes(out=c('var','units'))) %>% .[match(tolower(c(xvar,yvar)), tolower(.$var)),'units']
     axislabs <- paste0(c(doamp='Daily amplitude of DO', GPP='GPP', ER='ER', K600='K600')[c(xvar,yvar)], ' (', axisunits, ')')
