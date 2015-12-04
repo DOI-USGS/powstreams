@@ -20,9 +20,9 @@ shinyUI(fluidPage(
         tabsetPanel(
           tabPanel(
            "Estimates", 
-           dygraphOutput("dygraph1", height = 200),
-           dygraphOutput("dygraph2", height = 200),
-           dygraphOutput("dygraph3", height = 200)
+           dygraphOutput("dygraph1", height = 300),
+           dygraphOutput("dygraph2", height = 300),
+           dygraphOutput("dygraph3", height = 300)
           ),
           tabPanel(
            "Correlations",
