@@ -8,7 +8,7 @@ Tools for Powell Center working group on stream metabolism
 [![Test Coverage Status](https://img.shields.io/coveralls/USGS-R/powstreams.svg)](https://coveralls.io/r/USGS-R/powstreams)
 [![Issues Ready to Address](https://badge.waffle.io/USGS-R/powstreams.png?label=ready&title=Ready)](https://waffle.io/USGS-R/powstreams)
 
-### First-Time Installation:
+### First-time installation:
 ```r
 install.packages("powstreams", dependencies = TRUE, 
   repos = c("http://owi.usgs.gov/R","http://cran.rstudio.com"))
