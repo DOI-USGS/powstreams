@@ -11,12 +11,12 @@ Tools for Powell Center working group on stream metabolism
 ### First-time installation:
 ```r
 install.packages("powstreams", dependencies = TRUE, 
-  repos = c("http://owi.usgs.gov/R","http://cran.rstudio.com"))
+  repos = c("http://owi.usgs.gov/R","https://cran.rstudio.com"))
 ```
 ### Updates (do this often after installation):
 ```r
 update.packages(oldPkgs=c("powstreams","mda.streams","streamMetabolizer","sbtools","unitted"),
-  dependencies = TRUE, repos=c("http://owi.usgs.gov/R", "http://cran.rstudio.com"))
+  dependencies = TRUE, repos=c("http://owi.usgs.gov/R", "https://cran.rstudio.com"))
 ```
 
 ## Disclaimer
