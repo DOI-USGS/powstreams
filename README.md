@@ -15,7 +15,8 @@ install.packages("powstreams", dependencies = TRUE,
 ```
 ### Updates (do this often after installation):
 ```r
-update.packages(oldPkgs=c("powstreams","mda.streams","streamMetabolizer","sbtools","unitted"), repos=c("http://owi.usgs.gov/R", "http://cran.rstudio.com"))
+update.packages(oldPkgs=c("powstreams","mda.streams","streamMetabolizer","sbtools","unitted"),
+  dependencies = TRUE, repos=c("http://owi.usgs.gov/R", "http://cran.rstudio.com"))
 ```
 
 ## Disclaimer
