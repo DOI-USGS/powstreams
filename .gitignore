@@ -3,10 +3,8 @@
 
 # Example code in package build process
 *-Ex.R
-
 # R data files from past sessions
 .Rdata
-
 # RStudio files
 .Rproj.user/
 .Rproj.user
@@ -14,3 +12,4 @@ powstreams.Rproj
 .Rbuildignore
 R/.DS_Store
 .DS_Store
+packrat/lib*/
