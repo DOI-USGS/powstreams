@@ -5,7 +5,7 @@ Tools for Powell Center working group on stream metabolism
 
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/gg6y017krc5ij0ba?svg=true)](https://ci.appveyor.com/project/jread-usgs/powstreams)
 [![Linux Build Status](https://travis-ci.org/USGS-R/powstreams.svg)](https://travis-ci.org/USGS-R/powstreams)
-[![Test Coverage Status](https://img.shields.io/coveralls/USGS-R/powstreams.svg)](https://coveralls.io/r/USGS-R/powstreams)
+[![Test Coverage Status][![Coverage Status](https://coveralls.io/repos/github/USGS-R/powstreams/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/powstreams?branch=master)
 [![Issues Ready to Address](https://badge.waffle.io/USGS-R/powstreams.png?label=ready&title=Ready)](https://waffle.io/USGS-R/powstreams)
 
 ### First-time installation:
