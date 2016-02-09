@@ -5,7 +5,7 @@ Tools for Powell Center working group on stream metabolism
 
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/gg6y017krc5ij0ba?svg=true)](https://ci.appveyor.com/project/jread-usgs/powstreams)
 [![Linux Build Status](https://travis-ci.org/USGS-R/powstreams.svg)](https://travis-ci.org/USGS-R/powstreams)
-[![Test Coverage Status][![Coverage Status](https://coveralls.io/repos/github/USGS-R/powstreams/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/powstreams?branch=master)
+[![Test Coverage Status](https://coveralls.io/repos/github/USGS-R/powstreams/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/powstreams?branch=master)
 [![Issues Ready to Address](https://badge.waffle.io/USGS-R/powstreams.png?label=ready&title=Ready)](https://waffle.io/USGS-R/powstreams)
 
 ### First-time installation:
@@ -15,7 +15,7 @@ install.packages("powstreams", dependencies = TRUE,
 ```
 ### Updates (do this often after installation):
 ```r
-update.packages(oldPkgs=c("powstreams","mda.streams","streamMetabolizer","sbtools","unitted"),
+update.packages(oldPkgs=c("powstreams","gsplot","mda.streams","sbtools","streamMetabolizer","unitted"),
   dependencies = TRUE, repos=c("http://owi.usgs.gov/R", "https://cran.rstudio.com"))
 ```
 
