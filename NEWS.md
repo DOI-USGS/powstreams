@@ -4,8 +4,8 @@
 please contact us if this is relevant to you.
 
 * internal data storage will be changing; keeping your packages updated should 
-make this nearly invisible to you if you access data via `powstreams`. But if
-you like to go straight to the ScienceBase website to download .tsv.gz files,
+make this nearly invisible to you if you access data via `powstreams`. But if 
+you like to go straight to the ScienceBase website to download .tsv.gz files, 
 please contact us.
 
 * the exact format of `streamMetabolizer` models changes over time; keeping your
@@ -13,6 +13,14 @@ packages updated should make this nearly invisible to you
 
 For update instructions, see 
 https://github.com/aappling-usgs/powstreams/blob/master/README.md
+
+# powstreams 0.7.19
+
+* new functions: `search_sites`, `search_metab_models`, and `search_metab_runs`
+
+* more powerful: `get_ts` aggregates sub-daily values to daily as needed
+
+* more powerful: `get_ts_metadata` lets you do simple queries
 
 
 # powstreams 0.7.18

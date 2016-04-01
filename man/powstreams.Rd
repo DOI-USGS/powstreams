@@ -57,6 +57,12 @@ lower-level functions generic to all ScienceBase tasks, see \pkg{sbtools}.
   
   \item \code{\link{list_metab_models}} - list the metab_model objects on SB
   
+  \item \code{\link{search_sites}} - search the sites on SB
+  
+  \item \code{\link{search_metab_models}} - search the metab_models on SB
+  
+  \item \code{\link{search_metab_runs}} - search the metab_runs on SB
+  
   }
 }
 
