@@ -4,17 +4,7 @@
 \alias{get_ts_metadata}
 \title{Get information about timeseries variables and sources}
 \usage{
-get_ts_metadata(..., out = c("var", "src", "units", "metab_var",
-  "var_descrip", "src_descrip"), drop = TRUE)
-}
-\arguments{
-\item{...}{a list of unnamed arguments to pass to \code{dplyr::filter_}}
-
-\item{out}{a list of arguments to pass to \code{dplyr::select_}}
-
-\item{drop}{logical. if the filtering & selection lead to a data.frame whose 
-dimensions would ordinarily be dropped using z[x,y] location, should the 
-dimensions be dropped?}
+get_ts_metadata()
 }
 \description{
 Get information about timeseries variables and sources

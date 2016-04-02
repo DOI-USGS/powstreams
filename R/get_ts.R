@@ -5,10 +5,14 @@
 #' \code{on_local_exists='replace'}. There's a small risk that the resulting ts 
 #' will be out of date relative to ScienceBase, but the benefit is faster 
 #' ts-getting.
-#'
+#' 
+#' @param usage get_ts(var_src, site_name, method = c("approx", "full_join",
+#'   "left_join", "inner_join"), approx_tol = as.difftime(3, units = "hours"), 
+#'   on_local_exists = "skip", on_invalid = "stop", match_var = "leftmost", 
+#'   condense_stat = mean, day_start = 4, day_end = 28, quietly = FALSE)
 #' @param var_src a valid variable name for timeseries data (see 
-#'   \code{get_ts_metadata(data_type=='ts', out=c('var','src','units'))})
-#' @param site_name a valid mda.streams site (see \link{get_sites})
+#'   \code{\link{get_ts_metadata}()$var_src})
+#' @param site_name a valid mda.streams site (see \code{\link{list_sites}()})
 #' @param method character specifying the method to use to combine timeseries 
 #'   datasets
 #' @param approx_tol difftime. Ignored if method != 'approx'. If method == 
