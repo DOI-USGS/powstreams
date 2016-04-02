@@ -20,14 +20,18 @@
   }
   
   if(requireNamespace('devtools', quietly=TRUE)) {
-    github_ref <- devtools:::github_resolve_ref(
-      devtools::github_release(), 
-      devtools:::parse_git_repo(github_pkg_ref))$ref
-    github_version <- package_version(gsub('v', '', github_ref))
-    if(local_version < github_version) {
-      packageStartupMessage(
-        'New development version of ', pkgname, ' (', github_version, ') is ready! You have ', local_version, '. Get dev updates with\n',
-        github_update_code)
-    }
+    tryCatch({
+      github_ref <- devtools:::github_resolve_ref(
+        devtools::github_release(), 
+        devtools:::parse_git_repo(github_pkg_ref))$ref
+      github_version <- package_version(gsub('v', '', github_ref))
+      if(local_version < github_version) {
+        packageStartupMessage(
+          'New development version of ', pkgname, ' (', github_version, ') is ready! You have ', local_version, '. Get dev updates with\n',
+          github_update_code)
+      }
+    }, error=function(e) {
+      packageStartupMessage("Can't check GitHub for new package versions just now. We'll try again next time.")
+    })
   }
 }
