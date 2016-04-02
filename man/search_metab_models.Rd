@@ -3,6 +3,11 @@
 \name{search_metab_models}
 \alias{search_metab_models}
 \title{Search the metab_models}
+\usage{
+search_metab_models(model_name = NA, title = NA, row = NA, site = NA, 
+  date = NA, tag = NA, strategy = NA, metab_models = list_metab_models(),
+  match_case = FALSE, fixed = TRUE)
+}
 \arguments{
 \item{model_name}{text to search for within the entire model_name}
 
@@ -16,15 +21,15 @@
 
 \item{tag}{text to search for within the tag portion of the model_name}
 
-\item{strategy}{text to search for within the strategy portion of the
+\item{strategy}{text to search for within the strategy portion of the 
 model_name}
 
-\item{metab_models}{vector of model_names to search. The default is to pull
+\item{metab_models}{vector of model_names to search. The default is to pull 
 this list from ScienceBase}
 
 \item{match_case}{logical. should the case be matched exactly?}
 
-\item{fixed}{logical. As in \code{\link{grepl}}, TRUE to require an exact
+\item{fixed}{logical. As in \code{\link{grepl}}, TRUE to require an exact 
 match and FALSE to use regular expressions}
 }
 \description{

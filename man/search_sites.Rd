@@ -3,8 +3,13 @@
 \name{search_sites}
 \alias{search_sites}
 \title{Search the sites}
+\usage{
+search_sites(everything = NA, site_name = NA, long_name = NA, database
+  = NA, sitenum = NA, site_names = list_sites(), match_case = FALSE, fixed = 
+  TRUE)
+}
 \arguments{
-\item{everything}{text to search for within \code{paste(site_name,
+\item{everything}{text to search for within \code{paste(site_name, 
 long_name)}}
 
 \item{site_name}{text to search for within the [short] site_name}
@@ -14,15 +19,14 @@ long_name)}}
 \item{database}{text to search for within the database portion of the 
 site_name}
 
-\item{sitenum}{text to search for within the sitenum portion of the 
-site_name}
+\item{sitenum}{text to search for within the sitenum portion of the site_name}
 
 \item{site_names}{vector of site_names to search (with long_name added). The 
 default is to pull this list from ScienceBase}
 
 \item{match_case}{logical. should the case be matched exactly?}
 
-\item{fixed}{logical. As in \code{\link{grepl}}, TRUE to require an exact
+\item{fixed}{logical. As in \code{\link{grepl}}, TRUE to require an exact 
 match and FALSE to use regular expressions}
 }
 \description{

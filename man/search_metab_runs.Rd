@@ -3,6 +3,10 @@
 \name{search_metab_runs}
 \alias{search_metab_runs}
 \title{Search the metab_runs}
+\usage{
+search_metab_runs(metab_run_title = NA, date = NA, tag = NA, strategy
+  = NA, metab_runs = list_metab_runs(), match_case = FALSE, fixed = TRUE)
+}
 \arguments{
 \item{metab_run_title}{text to search for within the entire metab_run_title}
 
@@ -13,12 +17,12 @@
 \item{strategy}{text to search for within the strategy portion of the 
 model_name}
 
-\item{metab_runs}{vector of metab_run_titles to search. The default is to
+\item{metab_runs}{vector of metab_run_titles to search. The default is to 
 pull this list from ScienceBase}
 
 \item{match_case}{logical. should the case be matched exactly?}
 
-\item{fixed}{logical. As in \code{\link{grepl}}, TRUE to require an exact
+\item{fixed}{logical. As in \code{\link{grepl}}, TRUE to require an exact 
 match and FALSE to use regular expressions}
 }
 \description{
