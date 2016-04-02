@@ -16,9 +16,9 @@ Depends:
     R (>= 3.0)
 Imports:
     gsplot (>= 0.4.2),
-    mda.streams (>= 0.8.10),
+    mda.streams (>= 0.9.3),
     sbtools (>= 0.15.2),
-    streamMetabolizer (>= 0.7.1),
+    streamMetabolizer (>= 0.9.1),
     unitted (>= 0.2.5),
     dplyr,
     DT,
