@@ -26,11 +26,11 @@ before_install:
 r_github_packages:
   - jimhester/covr
   - appling/unitted
-  - USGS-R/streamMetabolizer
+  - USGS-R/streamMetabolizer@develop
   - USGS-R/sbtools
   - USGS-R/gsplot
   - USGS-R/geoknife
-  - USGS-R/mda.streams
+  - USGS-R/mda.streams@develop
 
 after_success:
   - Rscript -e 'covr::coveralls()'

@@ -5,6 +5,8 @@ https://github.com/aappling-usgs/powstreams/blob/master/README.md
 
 # powstreams 0.7.19
 
+* now automatically checks for available updates when you attach the package
+
 * new functions: `search_sites`, `search_ts_metadata`, `search_metab_models`, 
 and `search_metab_runs`
 
