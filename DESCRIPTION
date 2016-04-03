@@ -1,9 +1,9 @@
 Package: powstreams
 Type: Package
 Title: powstreams
-Version: 0.7.18
-Date: 2016-02-09
-Author: Jordan S Read, Luke A Winslow, Alison Appling
+Version: 0.7.19
+Date: 2016-04-02
+Author: Jordan S Read, Luke A Winslow, Alison Appling, Lindsay Carr
 Maintainer: Jordan S Read <jread@usgs.gov>
 Description: tools for working Powell Center working group on stream metabolism.
 License: file LICENSE
@@ -16,9 +16,9 @@ Depends:
     R (>= 3.0)
 Imports:
     gsplot (>= 0.4.2),
-    mda.streams (>= 0.8.10),
+    mda.streams (>= 0.9.3),
     sbtools (>= 0.15.2),
-    streamMetabolizer (>= 0.7.1),
+    streamMetabolizer (>= 0.9.4),
     unitted (>= 0.2.5),
     dplyr,
     DT,
@@ -27,6 +27,7 @@ Imports:
     shiny,
     xts
 Suggests:
+    devtools,
     testthat
 LazyLoad: yes
 LazyData: yes

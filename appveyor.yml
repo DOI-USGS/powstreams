@@ -21,11 +21,11 @@ install:
 
 build_script:
   - travis-tool.sh install_github appling/unitted
-  - travis-tool.sh install_github USGS-R/streamMetabolizer
+  - travis-tool.sh install_github USGS-R/streamMetabolizer@develop
   - travis-tool.sh install_github USGS-R/sbtools
   - travis-tool.sh install_github USGS-R/gsplot
   - travis-tool.sh install_github USGS-R/geoknife
-  - travis-tool.sh install_github USGS-R/mda.streams
+  - travis-tool.sh install_github USGS-R/mda.streams@develop
   - travis-tool.sh install_deps
 
 test_script:
