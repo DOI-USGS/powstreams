@@ -90,13 +90,13 @@ shinyServer(function(input, output) {
       for (nm in names(models)){
         vardat <- predict_metab(models[[nm]])
         if(nrow(vardat) > 0) {
-          vardat <- vardat[c('local.date',grep(var, names(vardat), value=TRUE))]
+          vardat <- vardat[c('date',grep(var, names(vardat), value=TRUE))]
           if(nrow(vardat) == 1) {
             vardat <- data.frame(
-              dt=vardat[[1,1]] + as.difftime(i+c(-1,4), units="secs"), 
+              dt=vardat[[1,1]] + as.difftime(c(-1,4), units="secs"), 
               vardat[1,-1]) %>% setNames(names(vardat))
           }
-          df <- data.frame(xts::xts(vardat[[var]], order.by=vardat[['local.date']])) %>% setNames(model_tags[nm])
+          df <- data.frame(xts::xts(vardat[[var]], order.by=vardat[['date']])) %>% setNames(model_tags[nm])
         } else {
           df <- null.xts
         }
@@ -115,15 +115,15 @@ shinyServer(function(input, output) {
     dplyr::bind_rows(lapply(names(models), function(nm) {
       m <- models[[nm]]
       preds <- predict_metab(m)
-      if(nrow(preds)==0) preds <- data.frame(local.date=NA, GPP=NA, ER=NA, K600=NA)
+      if(nrow(preds)==0) preds <- data.frame(date=NA, GPP=NA, ER=NA, K600=NA)
       site <- get_info(m)$config$site
       coords <- get_site_info(site)
       amps <- tryCatch(
         get_ts("doamp_calcDAmp", site) %>% unitted::v() %>%
-          mutate(local.date=as.Date(convert_GMT_to_solartime(DateTime, longitude=coords$lon))) %>%
-          select(local.date, doamp), 
-        error=function(e) data.frame(local.date=preds$local.date, doamp=NA))
-      data.frame(model=nm, model_tag=model_tags[nm], dplyr::full_join(preds, amps, by="local.date"), stringsAsFactors=FALSE)
+          mutate(date=as.Date(convert_GMT_to_solartime(DateTime, longitude=coords$lon))) %>%
+          select(date, doamp), 
+        error=function(e) data.frame(date=preds$date, doamp=NA))
+      data.frame(model=nm, model_tag=model_tags[nm], dplyr::full_join(preds, amps, by="date"), stringsAsFactors=FALSE)
     }))
   })
   buildReg <- function(reg_data, xvar, yvar) {
@@ -135,7 +135,7 @@ shinyServer(function(input, output) {
     axislabs <- paste0(c(doamp='Daily amplitude of DO', GPP='GPP', ER='ER', K600='K600')[c(xvar,yvar)], ' (', axisunits, ')')
     plot_ly(reg_data, x=reg_data[[xvar]], y=reg_data[[yvar]], type='scatter', color=model, mode='markers', opacity=0.8,
             colors = colors[seq_len(length(unique(reg_data$model)))],
-            text=sprintf('%s<br>%s<br>%s = %0.1f<br>%s = %0.1f', model_tag, as.character(local.date), xvar, reg_data[[xvar]], yvar, reg_data[[yvar]]), 
+            text=sprintf('%s<br>%s<br>%s = %0.1f<br>%s = %0.1f', model_tag, as.character(date), xvar, reg_data[[xvar]], yvar, reg_data[[yvar]]), 
             hoverinfo='text+x') %>%
       layout(xaxis=list(title=axislabs[1]), yaxis=list(title=axislabs[2]))
   }

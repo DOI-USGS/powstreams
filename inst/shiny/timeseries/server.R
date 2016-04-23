@@ -1,5 +1,6 @@
 
 noneselected <- "-- no variable selected --"
+Sys.setenv(TZ='UTC')
 
 library(shiny)
 shinyServer(function(input, output, session) {
@@ -7,11 +8,14 @@ shinyServer(function(input, output, session) {
   # -- <dygraphs-builder> --
   buildDy <- function(i){
     ts <- downloaded(i)
+    rangeSel_i <- if(is.null(input$dataset2) || input$dataset2 == noneselected) 1 else if(is.null(input$dataset3) || input$dataset3 == noneselected) 2 else 3
     if (!is.null(ts) && length(ts$data) > 0 ){
-      dygraphs::dygraph(ts$data, group = "powstreams") %>%
+      dygraphs::dygraph(ts$data, group = "powstreams", periodicity=list(scale='minute',label='minute')) %>%
         dygraphs::dyOptions(colors = RColorBrewer::brewer.pal(max(3,length(names(ts$data))), "Dark2")) %>%
         dygraphs::dyHighlight(highlightSeriesBackgroundAlpha = 0.65, hideOnMouseOut = TRUE) %>%
-        dygraphs::dyAxis("y", label = ts$ylab)
+        dygraphs::dyAxis("y", label = ts$ylab) %>% 
+        dyOptions(labelsUTC = TRUE) %>% 
+        {if(i==rangeSel_i) dyRangeSelector(., fillColor='', strokeColor='', height=20) else .}
     }
   }
   # -- </dygraphs-builder> --
@@ -26,7 +30,7 @@ shinyServer(function(input, output, session) {
     }
     
     if (i <= length(datanames)){
-      data = xts::xts(NULL)
+      data = xts::xts(NULL, tzone='UTC')
       metadata <- mda.streams::get_var_src_codes(var_src==datanames[i], out=c('units','var_descrip','var'))
       ylab <- paste0(metadata$var_descrip, ' (',metadata$units,')')
       
@@ -37,10 +41,10 @@ shinyServer(function(input, output, session) {
           load(file = rdfile) # loads tsobject
         } else {
           message("downloading file:", datanames[i])
-          file <- mda.streams::download_ts(var_src = datanames[i], site_name = site, 
-                                           on_local_exists = 'skip', on_remote_missing = "return_NA")
+          file <- mda.streams::download_ts(
+            var_src = datanames[i], site_name = site, on_local_exists = 'skip', on_remote_missing = "return_NA")
           if (is.na(file))
-            tsobject <- xts::xts(NULL)
+            tsobject <- xts::xts(NULL, tzone='UTC')
           else {
             unitt <- mda.streams::read_ts(file)
             var <- unitted::v(unitt)
@@ -52,7 +56,9 @@ shinyServer(function(input, output, session) {
                 var[1] <- var[[1,1]] + as.difftime(i+c(-1,4), units="secs")
               }
             }
-            tsobject <- xts::xts(var[[2]], order.by = as.POSIXct(var[['DateTime']]), tz='UTC')
+            lon <- mda.streams::get_site_coords(site, use_basedon=TRUE)$lon
+            sitetime <- streamMetabolizer::convert_UTC_to_solartime(var[['DateTime']], longitude=lon, time.type='mean solar')
+            tsobject <- xts::xts(var[[2]], order.by = lubridate::force_tz(sitetime, tzone='UTC'), tzone='UTC')
           }
           save(tsobject, list='tsobject', file = rdfile)
         }
