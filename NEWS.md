@@ -3,6 +3,13 @@
 For instructions on how to install or update `powstreams`, see 
 https://github.com/aappling-usgs/powstreams/blob/master/README.md
 
+# powstreams 0.7.20
+
+* explore_timeseries now displays tses in the local (solar mean) time and has a
+range selector
+
+* updates in explore_model for recent changes to streamMetabolizer
+
 # powstreams 0.7.19
 
 * now automatically checks for available updates when you attach the package
