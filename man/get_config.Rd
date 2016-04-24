@@ -3,6 +3,10 @@
 \name{get_config}
 \alias{get_config}
 \title{Download and read a config file from a metab run on SB}
+\usage{
+get_config(title, config_file = grep("config",
+  list_metab_run_files(title), value = TRUE)[1], on_local_exists = "skip")
+}
 \arguments{
 \item{title}{the metab run title. See options using \code{list_metab_runs()}}
 

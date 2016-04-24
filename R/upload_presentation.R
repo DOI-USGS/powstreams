@@ -1,6 +1,6 @@
 #' upload a presentation to sciencebase
 #' 
-#' You must be logged into ScienceBase with \code{\link{login_sb}} to use this
+#' You must be logged into ScienceBase with \code{\link{login_sb}} to use this 
 #' function
 #' 
 #' @param file a file path to the presentation for upload

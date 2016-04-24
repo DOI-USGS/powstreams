@@ -3,11 +3,24 @@
 \name{list_tses}
 \alias{list_tses}
 \title{List the timeseries data available for a particular site}
+\usage{
+list_tses(site_name, with_ts_version = "rds", with_ts_archived = 
+  FALSE, limit = 10000)
+}
 \arguments{
-\item{site_name}{a valid powstreams site name (see \link{list_sites})}
+\item{site_name}{a character vector of length one with a site name such as 
+those returned from make_site_name()}
+
+\item{with_ts_version}{one or more of \code{c('tsv','rds')} to limit the 
+dataset extension to anything in with_ts_version (if the dataset is a ts)}
+
+\item{with_ts_archived}{one or more of \code{c(TRUE,FALSE)} to limit the list
+to sites that have a ts that's archived, not archived, or either}
+
+\item{limit}{integer. the maximum number of items to return}
 }
 \value{
-a character vector of timeseries names, or NULL if none exists.
+a character vector of timeseries names, or NULL if none exists
 }
 \description{
 List the timeseries data available for a particular site
@@ -15,5 +28,9 @@ List the timeseries data available for a particular site
 \examples{
 list_tses(site = "nwis_50231500")
 
+}
+\seealso{
+\code{\link[powstreams]{get_ts}} \code{\link[powstreams]{locate_ts}}
+  \code{\link[powstreams]{list_sites}}
 }
 

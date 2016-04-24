@@ -3,6 +3,10 @@
 \name{locate_meta}
 \alias{locate_meta}
 \title{Find a metadata object on ScienceBase}
+\usage{
+locate_meta(type, format = c("id", "url"), by = c("tag", "dir",
+  "either"), limit = 5000, browser = (format == "url"))
+}
 \arguments{
 \item{type}{the type of metadata you want}
 
@@ -14,6 +18,8 @@ the default and recommended option), by scanning the parent directory for
 the desired title ("dir"), or both in combination ("either")?}
 
 \item{browser}{logical. Should the URL be opened in a browser?}
+
+\item{limit}{integer. the maximum number of items to return}
 }
 \description{
 Find a metadata object on ScienceBase

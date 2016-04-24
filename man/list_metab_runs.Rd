@@ -3,6 +3,9 @@
 \name{list_metab_runs}
 \alias{list_metab_runs}
 \title{List the available metabolism runs}
+\usage{
+list_metab_runs()
+}
 \value{
 a character vector of titles of the metab_runs posted on SB
 }

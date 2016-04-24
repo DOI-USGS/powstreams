@@ -3,6 +3,7 @@
 #' Opens the specified folder, or the containing folder of the specified file,
 #' in the file explorer
 #' 
+#' @usage view_folder(path)
 #' @param path a file path
 #' 
 #' @importFrom mda.streams view_folder

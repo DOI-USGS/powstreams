@@ -3,16 +3,18 @@
 \name{get_ts}
 \alias{get_ts}
 \title{Bring one or more timeseries into R and merge them}
+\usage{
+get_ts(var_src, site_name, method = c("approx", "full_join",
+  "left_join", "inner_join"), approx_tol = as.difftime(3, units = "hours"), 
+  version = c("rds", "tsv"), on_local_exists = "skip", on_invalid = "warn",
+  match_var = "leftmost", condense_stat = mean, day_start = 4, day_end = 28,
+  quietly = FALSE)
+}
 \arguments{
-\item{usage}{get_ts(var_src, site_name, method = c("approx", "full_join",
-"left_join", "inner_join"), approx_tol = as.difftime(3, units = "hours"), 
-on_local_exists = "skip", on_invalid = "stop", match_var = "leftmost", 
-condense_stat = mean, day_start = 4, day_end = 28, quietly = FALSE)}
-
 \item{var_src}{a valid variable name for timeseries data (see 
 \code{\link{get_ts_metadata}()$var_src})}
 
-\item{site_name}{a valid mda.streams site (see \code{\link{list_sites}()})}
+\item{site_name}{a valid powstreams site (see \code{\link{list_sites}()})}
 
 \item{method}{character specifying the method to use to combine timeseries 
 datasets}
@@ -21,6 +23,9 @@ datasets}
 'approx', the maximum time interval over which an approximation will be 
 used to fill in data gaps (relative to the variable identified in 
 \code{match_var})}
+
+\item{version}{character string indicating whether you want to download the 
+ts as a .tsv or .rds}
 
 \item{match_var}{character string indicating which variable's timesteps the 
 resulting data.frame should match. The string must also be in `var_src`. 
@@ -53,6 +58,9 @@ the midnight that begins the date. For example, day_end=30 indicates that
 data describing 2006-06-26 end at the last observation time that occurs 
 before 2006-06-27 06:00. See day_start for recommended start and end times.}
 
+\item{quietly}{logical. if one or more timeseries will be truncated, padded 
+with NAs, or condensed, should a warning message be given?}
+
 \item{on_local_exists}{character indicating what to do if the folder already 
 contains a file with the intended download name}
 
@@ -60,8 +68,16 @@ contains a file with the intended download name}
 handle invalid timeseries}
 }
 \description{
-Downloads the file from SB if either (1) the file has not yet been downloaded
-to the \code{tempdir()} during this R session, or (2) 
+The timeseries are iteratively joined, starting by joining the second element
+of \code{var_src} to the first, then adding in the third, etc. This method 
+means you have control, not just through the \code{method} and 
+\code{approx_tol} arguments but also through how you order the elements of 
+\code{var_src}, with consequences for the size and contents of the resulting 
+data.frame.
+}
+\details{
+Downloads each file from SB if either (1) the file has not yet been 
+downloaded to the code{tempdir()} during this R session, or (2) 
 \code{on_local_exists='replace'}. There's a small risk that the resulting ts 
 will be out of date relative to ScienceBase, but the benefit is faster 
 ts-getting.

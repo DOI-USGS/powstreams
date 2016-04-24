@@ -3,6 +3,9 @@
 \name{view_folder}
 \alias{view_folder}
 \title{Open a folder or a file's folder}
+\usage{
+view_folder(path)
+}
 \arguments{
 \item{path}{a file path}
 }

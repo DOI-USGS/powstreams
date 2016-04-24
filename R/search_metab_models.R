@@ -1,6 +1,6 @@
 #' Search the metab_models
 #' 
-#' @usage search_metab_models(model_name = NA, title = NA, row = NA, site = NA, 
+#' @usage search_metab_models(model_name = NA, title = NA, row = NA, site = NA,
 #'   date = NA, tag = NA, strategy = NA, metab_models = list_metab_models(),
 #'   match_case = FALSE, fixed = TRUE)
 #' @param model_name text to search for within the entire model_name

@@ -3,6 +3,9 @@
 \name{login_sb}
 \alias{login_sb}
 \title{Log into ScienceBase with your myUSGS credentials}
+\usage{
+login_sb(username)
+}
 \arguments{
 \item{username}{Your ScienceBase/myUSGS username, usually an email address}
 }

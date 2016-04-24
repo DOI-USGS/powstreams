@@ -3,6 +3,12 @@
 \name{locate_folder}
 \alias{locate_folder}
 \title{Find a high-level folder on ScienceBase}
+\usage{
+locate_folder(folder = c("project", "metab_runs", "metab_models", 
+  "sites", "sites_meta", "ts_meta", "ideas", "presentations", "proposals", 
+  "publications"), format = c("id", "url"), by = c("tag", "dir", "either"), 
+  limit = 5000, browser = (format == "url"))
+}
 \arguments{
 \item{folder}{the folder to locate}
 
@@ -14,6 +20,8 @@ the default and recommended option), by scanning the parent directory for
 the desired title ("dir"), or both in combination ("either")?}
 
 \item{browser}{logical. Should the URL be opened in a browser?}
+
+\item{limit}{integer. the maximum number of items to return}
 }
 \description{
 Find a high-level folder on ScienceBase

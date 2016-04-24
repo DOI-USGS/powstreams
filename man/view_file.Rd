@@ -3,6 +3,9 @@
 \name{view_file}
 \alias{view_file}
 \title{Open a file}
+\usage{
+view_file(path)
+}
 \arguments{
 \item{path}{a file path}
 }

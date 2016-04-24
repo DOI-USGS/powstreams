@@ -10,7 +10,7 @@ upload_presentation(file)
 \item{file}{a file path to the presentation for upload}
 }
 \description{
-You must be logged into ScienceBase with \code{\link{login_sb}} to use this
+You must be logged into ScienceBase with \code{\link{login_sb}} to use this 
 function
 }
 
