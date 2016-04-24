@@ -3,8 +3,12 @@
 \name{locate_metab_model}
 \alias{locate_metab_model}
 \title{Find a metab_model item on ScienceBase}
+\usage{
+locate_metab_model(model_name, format = c("id", "url"), by = c("tag",
+  "dir", "either"), limit = 5000, browser = (format == "url"))
+}
 \arguments{
-\item{model_name}{the model name, e.g., "nwis_05515500-35-150729 0.1.2
+\item{model_name}{the model name, e.g., "nwis_05515500-35-150729 0.1.2 
 compare_par_srces"}
 
 \item{format}{character indicating whether the folder should be returned as 
@@ -15,6 +19,8 @@ the default and recommended option), by scanning the parent directory for
 the desired title ("dir"), or both in combination ("either")?}
 
 \item{browser}{logical. Should the URL be opened in a browser?}
+
+\item{limit}{integer. the maximum number of items to return}
 }
 \description{
 Find a metab_model item on ScienceBase

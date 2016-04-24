@@ -4,6 +4,8 @@
 \alias{view_google_map}
 \title{Get, and by default browse to, a URL to the site location on Google Maps}
 \arguments{
+\item{view_google_map(site_names, }{browser = TRUE)}
+
 \item{site_names}{a list of site names such as those returned from 
 make_site_name()}
 
@@ -14,7 +16,7 @@ Get, and by default browse to, a URL to the site location on Google Maps
 }
 \examples{
 \dontrun{
-cat(view_google_map("nwis_01484680"))
+view_google_map("nwis_01484680", br=FALSE)
 view_google_map(c("nwis_01467200","nwis_09327000","nwis_351111089512501"))
 }
 

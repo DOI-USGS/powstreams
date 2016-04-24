@@ -3,6 +3,9 @@
 \name{list_metab_run_files}
 \alias{list_metab_run_files}
 \title{List the files stored in a metabolism runs}
+\usage{
+list_metab_run_files(title, out = c("filename", "size_bytes", "url"))
+}
 \arguments{
 \item{title}{a metab_run title}
 

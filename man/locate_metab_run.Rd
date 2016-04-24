@@ -3,8 +3,12 @@
 \name{locate_metab_run}
 \alias{locate_metab_run}
 \title{Find a metab_run item on ScienceBase}
+\usage{
+locate_metab_run(title, format = c("id", "url"), by = c("tag", "dir",
+  "either"), limit = 5000, browser = (format == "url"))
+}
 \arguments{
-\item{title}{the title of the metabolism modeling run you want. this is the
+\item{title}{the title of the metabolism modeling run you want. this is the 
 date, tag, and run strategy separated by spaces.}
 
 \item{format}{character indicating whether the folder should be returned as 
@@ -15,6 +19,8 @@ the default and recommended option), by scanning the parent directory for
 the desired title ("dir"), or both in combination ("either")?}
 
 \item{browser}{logical. Should the URL be opened in a browser?}
+
+\item{limit}{integer. the maximum number of items to return}
 }
 \description{
 Find a metab_run item on ScienceBase

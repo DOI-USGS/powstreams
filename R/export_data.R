@@ -1,7 +1,7 @@
 #' Export data to a local text file
 #' 
 #' @param data a data.frame or unitted_data.frame of data
-#' @param file, The file to write to, as in \code{\link{write.table}}
+#' @param file the file to write to, as in \code{\link{write.table}}
 #' @param keep.units logical. if data has units, should these be written as a
 #'   second line (just beneath the header) in the text file?
 #' @param comment.char a single character, or "", with which to prepend the line

@@ -5,8 +5,9 @@
 #' employer. This function is equivalent to 
 #' \code{sbtools::\link[sbtools]{authenticate_sb}} but easier to type.
 #' 
+#' @usage login_sb(username)
 #' @param username Your ScienceBase/myUSGS username, usually an email address
-#' 
+#'   
 #' @importFrom mda.streams login_sb
 #' @name login_sb
 #' @rdname login_sb

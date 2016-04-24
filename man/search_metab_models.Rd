@@ -4,7 +4,7 @@
 \alias{search_metab_models}
 \title{Search the metab_models}
 \usage{
-search_metab_models(model_name = NA, title = NA, row = NA, site = NA, 
+search_metab_models(model_name = NA, title = NA, row = NA, site = NA,
   date = NA, tag = NA, strategy = NA, metab_models = list_metab_models(),
   match_case = FALSE, fixed = TRUE)
 }

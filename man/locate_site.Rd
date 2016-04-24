@@ -3,6 +3,10 @@
 \name{locate_site}
 \alias{locate_site}
 \title{Find a site folder on ScienceBase}
+\usage{
+locate_site(site_name, format = c("id", "url"), by = c("tag", "dir",
+  "either"), limit = 5000, browser = (format == "url"))
+}
 \arguments{
 \item{site_name}{the site ID, e.g. "nwis_02322688", whose folder you want}
 
@@ -14,6 +18,8 @@ the default and recommended option), by scanning the parent directory for
 the desired title ("dir"), or both in combination ("either")?}
 
 \item{browser}{logical. Should the URL be opened in a browser?}
+
+\item{limit}{integer. the maximum number of items to return}
 }
 \description{
 Find a site folder on ScienceBase
