@@ -1,5 +1,7 @@
 # Check whether this package is up to date
 .onAttach <- function(libname, pkgname) {
+  packageStartupMessage(paste("Funding for", pkgname, "expires summer 2017, after which bugfixes & new features will be minimal"))
+  
   GRAN_update_code <- paste0(
     '  update.packages(\n',
     '    oldPkgs=c("powstreams","gsplot","mda.streams","sbtools","streamMetabolizer","unitted"),\n',
