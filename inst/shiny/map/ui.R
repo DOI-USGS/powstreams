@@ -1,7 +1,7 @@
 
 shinyUI(fluidPage(
   
-  titlePanel("Powstreams working group CollabApp"),
+  titlePanel('Map Explorer (a Powstreams CollabApp)'),
   
   sidebarLayout(
     sidebarPanel(

@@ -3,11 +3,11 @@ library(plotly)
 library(mda.streams)
 library(dplyr)
 shinyUI(fluidPage(
+  titlePanel('Model Explorer (a Powstreams CollabApp)'),
   fluidPage(
     fluidRow(
       column(
         5,
-        h1("Powstreams CollabApp - Models"),
         DT::dataTableOutput('model_list'),
         actionButton("kill", "Stop application", icon = icon("remove-sign", lib = "glyphicon")),
         br(),
