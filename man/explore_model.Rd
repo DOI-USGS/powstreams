@@ -12,4 +12,3 @@ explore_model(browse = TRUE)
 \description{
 Open interactive graphs for metabolism models
 }
-

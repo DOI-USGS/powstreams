@@ -12,4 +12,3 @@ explore_timeseries(browse = TRUE)
 \description{
 Open interactive graphs for timeseries data
 }
-

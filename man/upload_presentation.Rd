@@ -13,4 +13,3 @@ upload_presentation(file)
 You must be logged into ScienceBase with \code{\link{login_sb}} to use this 
 function
 }
-

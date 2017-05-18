@@ -41,4 +41,3 @@ list_sites(list("wtr_nwis",any=c("doobs_nwis","doobs_simModel"),
 }
 
 }
-

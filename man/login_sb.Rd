@@ -15,4 +15,3 @@ password you set up via the ScienceBase interface or your government
 employer. This function is equivalent to 
 \code{sbtools::\link[sbtools]{authenticate_sb}} but easier to type.
 }
-
