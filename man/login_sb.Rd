@@ -4,10 +4,14 @@
 \alias{login_sb}
 \title{Log into ScienceBase with your myUSGS credentials}
 \usage{
-login_sb(username)
+login_sb(username, filename='~/.R/stream_metab.yaml')
 }
 \arguments{
 \item{username}{Your ScienceBase/myUSGS username, usually an email address}
+
+\item{filename}{The file path to a yaml file where fields for sb_user and
+sb_password can be found. This file will be ignored if \code{username} is
+given.}
 }
 \description{
 BE CAREFUL NOT TO POST OR SHARE YOUR PASSWORD! Use the same username and 

@@ -13,9 +13,9 @@
     '  devtools::install_github("',github_pkg_ref,'")')
   
   tryCatch({
-    GRAN_pkg <- available.packages(contrib.url("http://owi.usgs.gov/R"))
+    GRAN_pkg <- utils::available.packages(utils::contrib.url("http://owi.usgs.gov/R"))
     GRAN_version <- package_version(GRAN_pkg[[pkgname, 'Version']])
-    local_version <- packageVersion(pkgname)
+    local_version <- utils::packageVersion(pkgname)
     if(local_version < GRAN_version) {
       packageStartupMessage(
         'Time to update to ', pkgname, ' version ', GRAN_version, '! You have ', local_version, '. Get stable updates with\n',

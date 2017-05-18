@@ -1,8 +1,8 @@
 Package: powstreams
 Type: Package
 Title: powstreams
-Version: 0.8.1
-Date: 2016-05-02
+Version: 0.8.2
+Date: 2017-05-18
 Author: Jordan S Read, Luke A Winslow, Alison Appling, Lindsay Carr
 Maintainer: Jordan S Read <jread@usgs.gov>
 Description: tools for working Powell Center working group on stream metabolism.
@@ -16,7 +16,7 @@ Depends:
     R (>= 3.0)
 Imports:
     gsplot (>= 0.4.2),
-    mda.streams (>= 0.9.6),
+    mda.streams (>= 0.9.24),
     sbtools (>= 0.18.0),
     streamMetabolizer (>= 0.9.5),
     unitted (>= 0.2.5),

@@ -3,8 +3,9 @@
 #' The with_var_src argument optionally limits the list to those sites that 
 #' contain specific timeseries variables.
 #' 
-#' @usage list_sites(with_var_src = NULL, logic = c("all", "any"),
-#'   with_ts_version = "rds", with_ts_archived = FALSE, limit = 10000)
+#' @usage list_sites(with_var_src = NULL, logic=c("all","any"), 
+#'   with_ts_version='rds', with_ts_archived=FALSE,
+#'   with_ts_uploaded_after='2015-01-01', limit=10000)
 #' @param with_var_src character vector of data variables (i.e., 1+ of those 
 #'   listed in get_var_src_codes(out='var_src')), or a list of character vectors
 #'   where list names are 'any' and/or 'all' to define a combination of logical 
@@ -16,6 +17,8 @@
 #'   dataset extension to anything in with_ts_version (if the dataset is a ts)
 #' @param with_ts_archived one or more of \code{c(TRUE,FALSE)} to limit the list
 #'   to sites that have a ts that's archived, not archived, or either
+#' @param with_ts_uploaded_after POSIXct, or convertible to POSIXct, giving date
+#'   after which a ts must have been uploaded to count
 #' @param limit integer. the maximum number of items to return
 #' @return a character vector of site IDs
 #' @examples 

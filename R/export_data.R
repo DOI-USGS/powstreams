@@ -20,7 +20,7 @@ export_data <- function(data, file="", keep.units=is.unitted(data), comment.char
   if(is.unitted(data) & isTRUE(keep.units)) {
     write_unitted(data, file=file, comment.char=comment.char, sep=sep, row.names=row.names, quote=quote, ...)
   } else {
-    write.table(v(data), file=file, sep=sep, row.names=row.names, quote=quote, ...)
+    utils::write.table(v(data), file=file, sep=sep, row.names=row.names, quote=quote, ...)
   }
   invisible(file)
 }
