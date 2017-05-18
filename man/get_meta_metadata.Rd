@@ -9,4 +9,3 @@ get_meta_metadata()
 \description{
 Get information about site (meta) variables
 }
-

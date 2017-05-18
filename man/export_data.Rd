@@ -36,4 +36,3 @@ Export data to a local text file
 \seealso{
 \code{\link[unitted]{write_unitted}}, \code{\link{write.table}}
 }
-

@@ -21,4 +21,3 @@ Get a very basic summary of a site
 \seealso{
 \code{\link{get_meta}}, \code{\link{view_google_map}}
 }
-

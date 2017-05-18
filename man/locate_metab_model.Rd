@@ -31,4 +31,3 @@ locate_metab_model("nwis_01473900-16-150730 0.0.7 MLE_for_PRK_wHarvey_and_sw",
   format="url", browser=FALSE)
 }
 }
-

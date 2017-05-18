@@ -9,4 +9,3 @@ get_ts_metadata()
 \description{
 Get information about timeseries variables and sources
 }
-

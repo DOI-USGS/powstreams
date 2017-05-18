@@ -1,3 +1,7 @@
+# To publish to waterdatascience.shinyapps.io/pow_timeseries, make sure the last
+# installation of mda.streams, geoknife, unitted, sbtools, streamMetabolizer,
+# and any other custom packages is done using devtools::install_github. Then use
+# the Publish button in the RStudio editor window for this file.
 
 noneselected <- "-- no variable selected --"
 Sys.setenv(TZ='UTC')

@@ -12,4 +12,3 @@ explore_map(browse = TRUE)
 \description{
 Open an interactive map for site data
 }
-

@@ -12,25 +12,14 @@ repos:
   CRAN: http://cran.rstudio.com
   GRAN: http://owi.usgs.gov/R
 
-before_install:
-  - wget http://owi.usgs.gov/R/r-buildtools/JAGS-3.4.0.tar.gz
-  - tar xfvs JAGS-3.4.0.tar.gz
-  - cd JAGS-3.4.0
-  - sudo ./configure
-  - sudo make
-  - sudo make install
-  - cd ..
-  - sudo rm -f JAGS-3.4.0.tar.gz
-  - sudo rm -rf JAGS-3.4.0
-  
 r_github_packages:
   - jimhester/covr
   - appling/unitted
-  - USGS-R/streamMetabolizer@develop
+  - USGS-R/streamMetabolizer
   - USGS-R/sbtools
   - USGS-R/gsplot
   - USGS-R/geoknife
-  - USGS-R/mda.streams@develop
+  - USGS-R/mda.streams
 
 after_success:
   - Rscript -e 'covr::coveralls()'

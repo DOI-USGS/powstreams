@@ -31,4 +31,3 @@ Find a high-level folder on ScienceBase
 locate_folder("publications", format="url")
 }
 }
-

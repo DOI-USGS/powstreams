@@ -1,6 +1,9 @@
 name: pow_timeseries
 account: waterdatascience
 server: shinyapps.io
-bundleId: 341504
-url: https://waterdatascience.shinyapps.io/pow_timeseries
-when: 1451605726.80284
+appId: 76128
+bundleId: 439923
+url: https://waterdatascience.shinyapps.io/pow_timeseries/
+when: 1462219187.76678
+asMultiple: FALSE
+asStatic: FALSE

@@ -10,4 +10,3 @@ get_numeric_meta_columns()
 Helper function for shiny apps
 }
 \keyword{internal}
-

@@ -24,4 +24,3 @@ a character vector of titles of the metab_model .RData files posted
 \description{
 List the available metab_model objects
 }
-

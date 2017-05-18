@@ -32,4 +32,3 @@ locate_site("nwis_notasite", format="url")
 testthat::expect_error(locate_site("notasite", format="url"))
 }
 }
-

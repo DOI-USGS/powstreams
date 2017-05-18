@@ -8,7 +8,7 @@ names(sites.list) <- paste0(meta_sites$long_name, " (", meta_sites$site_name, ")
 library(shiny)
 library(dygraphs)
 shinyUI(fluidPage(
-  titlePanel("Powstreams working group CollabApp"),
+  titlePanel('Timeseries Explorer (a Powstreams CollabApp)'),
   
   sidebarLayout(
     
@@ -30,4 +30,5 @@ shinyUI(fluidPage(
       dygraphOutput("dygraph2", height="300px"),
       dygraphOutput("dygraph3", height="300px")
     )
-  )))
+  )
+))
