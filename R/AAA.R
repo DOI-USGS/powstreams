@@ -1,6 +1,8 @@
 # Check whether this package is up to date
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage(paste("Funding for", pkgname, "expires summer 2017, after which bugfixes & new features will be minimal"))
+  packageStartupMessage(paste(strwrap("USGS Support Package: https://owi.usgs.gov/R/packages.html#support"), collapse='\n'))
+  packageStartupMessage(paste(strwrap(
+    paste("Funding for", pkgname, "expires summer 2017, after which bugfixes & new features will be minimal")), collapse='\n'))
   
   GRAN_update_code <- paste0(
     '  update.packages(\n',
